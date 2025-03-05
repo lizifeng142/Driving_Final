@@ -1,8 +1,18 @@
 class MiniGame extends Phaser.Scene {
     constructor() {
         super("MiniGameScene");
-        this.knobFrame = 0; // Start at highest temp (90°F)
-        this.temperatures = [90, 75, 60, 50, 40, 35, 30, 25, 20]; // Frame-to-temp mapping
+
+        // First knob (default)
+        this.knobFrame1 = 0;
+        this.temperatures1 = [70, 75, 80, 85, 90, 65, 60, 55, 50];
+
+        // Second knob (Knob_Sprite2.png)
+        this.knobFrame2 = 0;
+        this.temperatures2 = [70, 75, 80, 85, 90, 65, 60, 55, 50];
+
+        // Target temperatures for event
+        this.targetTemp1 = null;
+        this.targetTemp2 = null;
     }
 
     init(data) {
@@ -13,64 +23,122 @@ class MiniGame extends Phaser.Scene {
         // Background image
         this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
 
-        // Create knob sprite
-        this.knob = this.add.sprite(640, 360, "knob", this.knobFrame)
-            .setOrigin(0.5, 0.5)
-            .setInteractive({ useHandCursor: true });
+        // Create first knob (Knob_Sprite.png)
+        this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
 
-        // Create animation
-        this.anims.create({
-            key: "turnKnob",
-            frames: this.anims.generateFrameNumbers("knob", { start: 0, end: 8 }),
-            frameRate: 10,
-            repeat: 0
-        });
+        // Create second knob (Knob_Sprite2.png)
+        this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
 
-        // Add click detection but ONLY within the knob area
-        this.knob.on("pointerdown", (pointer) => this.handleKnobClick(pointer));
-
-        // Close (X) Button
-        this.closeButton = this.add.text(640, 180, "X", {
-            fontSize: "32px",
-            fill: "#f00"
-        })
-            .setOrigin(0.5, 0.5)
+        // Left zone (First knob - cooling)
+        this.leftZone1 = this.add.rectangle(this.knob1.x - 300, this.knob1.y - 115, 60, 125, 0x000000, 0)
             .setInteractive()
-            .on("pointerdown", () => this.exitMiniGame());
+            .on("pointerdown", () => this.changeTemperature("left", 1));
 
-        // Temperature text
-        this.tempText = this.add.text(400, 450, `Temp: ${this.temperatures[this.knobFrame]}°F`, {
-            fontSize: "24px",
-            fill: "#000"
+        // Right zone (First knob - heating)
+        this.rightZone1 = this.add.rectangle(this.knob1.x - 235, this.knob1.y - 115, 60, 125, 0x000000, 0)
+            .setInteractive()
+            .on("pointerdown", () => this.changeTemperature("right", 1));
+
+        // Left zone (Second knob - cooling)
+        this.leftZone2 = this.add.rectangle(this.knob2.x + 250, this.knob2.y - 105, 60, 125, 0x000000, 0)
+            .setInteractive()
+            .on("pointerdown", () => this.changeTemperature("left", 2));
+
+        // Right zone (Second knob - heating)
+        this.rightZone2 = this.add.rectangle(this.knob2.x + 315, this.knob2.y - 105, 60, 125, 0x000000, 0)
+            .setInteractive()
+            .on("pointerdown", () => this.changeTemperature("right", 2));
+
+        // Temperature text (Knob 1)
+        this.tempText1 = this.add.text(510, 275, `${this.temperatures1[this.knobFrame1]}°`, {
+            fontSize: "15px",
+            fill: "#fff"
+        }).setOrigin(0.5, 0.5);
+
+        // Temperature text (Knob 2)
+        this.tempText2 = this.add.text(800, 280, `${this.temperatures2[this.knobFrame2]}°`, {
+            fontSize: "15px",
+            fill: "#fff"
+        }).setOrigin(0.5, 0.5);
+
+        // Start Temperature Matching Event
+        this.startTemperatureEvent();
+    }
+
+    startTemperatureEvent() {
+        // Choose random target temperatures
+        this.targetTemp1 = Phaser.Utils.Array.GetRandom(this.temperatures1);
+        this.targetTemp2 = Phaser.Utils.Array.GetRandom(this.temperatures2);
+
+        // Display the goal temperatures
+        this.targetText = this.add.text(640, 100, `Set to: ${this.targetTemp1}° & ${this.targetTemp2}°`, {
+            fontSize: "20px",
+            fill: "#fff"
         }).setOrigin(0.5, 0.5);
     }
 
-    handleKnobClick(pointer) {
-        // Check if the click is within the knob bounds
-        let knobBounds = this.knob.getBounds();
-        
-        if (pointer.x < knobBounds.left || pointer.x > knobBounds.right || 
-            pointer.y < knobBounds.top || pointer.y > knobBounds.bottom) {
-            return; // Ignore clicks outside the knob area
-        }
+    checkTemperatureMatch() {
+        // Check if the knobs match the required temperatures
+        if (
+            this.temperatures1[this.knobFrame1] === this.targetTemp1 &&
+            this.temperatures2[this.knobFrame2] === this.targetTemp2
+        ) {
+            this.targetText.setText("Correct! Patience +20");
 
-        // Determine direction based on click position
-        if (pointer.x < this.knob.x) {
-            this.knobFrame = Math.min(this.knobFrame + 1, 8); // Decrease temp
+            // Reward patience & exit game after a short delay
+            this.parentScene.rewardPatience(20);
+            this.time.delayedCall(1000, () => this.exitMiniGame(), [], this);
+        }
+    }
+
+    changeTemperature(direction, knob) {
+        let newFrame, knobFrame, temperatures, knobSprite, tempText;
+
+        if (knob === 1) {
+            newFrame = this.knobFrame1;
+            knobFrame = "knobFrame1";
+            temperatures = this.temperatures1;
+            knobSprite = this.knob1;
+            tempText = this.tempText1;
         } else {
-            this.knobFrame = Math.max(this.knobFrame - 1, 0); // Increase temp
+            newFrame = this.knobFrame2;
+            knobFrame = "knobFrame2";
+            temperatures = this.temperatures2;
+            knobSprite = this.knob2;
+            tempText = this.tempText2;
         }
 
-        // Update knob frame and temperature display
-        this.knob.setFrame(this.knobFrame);
-        this.tempText.setText(`Temp: ${this.temperatures[this.knobFrame]}°F`);
+        if (direction === "right") {
+            if (newFrame >= 0 && newFrame < 4) {
+                newFrame += 1; // Move right (0 → 1 → 2 → 3 → 4)
+            } else if (newFrame === 5) {
+                newFrame = 0; // Only Frame 5 goes back to 0 when clicking right
+            } else if (newFrame > 5 && newFrame <= 8) {
+                newFrame -= 1; // Move right from 8 → 7 → 6 → 5 (decrementing cooling)
+            }
+        }
+        else if (direction === "left") {
+            if (newFrame > 0 && newFrame <= 4) {
+                newFrame -= 1; // Move left (4 → 3 → 2 → 1 → 0)
+            } else if (newFrame === 0) {
+                newFrame = 5; // Jump to frame 5 when cooling starts
+            } else if (newFrame >= 5 && newFrame < 8) {
+                newFrame += 1; // Move left (5 → 6 → 7 → 8)
+            }
+        }
+
+        // Ensure the new frame is within bounds (0-8)
+        if (newFrame !== this[knobFrame] && newFrame >= 0 && newFrame <= 8) {
+            this[knobFrame] = newFrame;
+            knobSprite.setFrame(newFrame);
+            tempText.setText(`${temperatures[newFrame]}°`);
+
+            // Check if both knobs are correctly set
+            this.checkTemperatureMatch();
+        }
     }
 
     exitMiniGame() {
-        if (this.parentScene && typeof this.parentScene.rewardPatience === "function") {
-            this.parentScene.rewardPatience(20);
-        }
-
         this.scene.stop();
         this.parentScene.resumeGame();
     }

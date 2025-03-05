@@ -18,9 +18,8 @@ class Play extends Phaser.Scene {
     }
 
     startPatienceDecrease() {
-        // If patienceTween does not exist or has finished, create a new one
         if (!this.patienceTween || !this.patienceTween.isPlaying()) {
-            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 10000);
+            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 20000);
         }
     }
 
@@ -44,7 +43,7 @@ class Play extends Phaser.Scene {
             }
         });
     
-        return this.patienceTween; // Ensure the tween is assigned properly
+        return this.patienceTween;
     }
 
     startRageIncrease() {
@@ -72,63 +71,52 @@ class Play extends Phaser.Scene {
     }
 
     startMiniGame() {
-        // Ensure the patienceTween exists and is playing before pausing
+        // Slow down the decrease rate instead of pausing
         if (this.patienceTween && this.patienceTween.isPlaying()) {
-            this.patienceTween.pause();
+            this.patienceTween.timeScale = 0.3; // 30% of original speed
         }
 
-        // Pause the rage tween if it's running
+        // Slow down rage increase if active
         if (this.rageTween && this.rageTween.isPlaying()) {
-            this.rageTween.pause();
+            this.rageTween.timeScale = 0.3;
         }
     
-        this.scene.pause();
         this.scene.launch("MiniGameScene", { parentScene: this });
     }
     
     resumeGame() {
-        // Ensure the patienceTween exists and is paused before resuming
-        if (this.patienceTween && this.patienceTween.isPaused()) {
-            this.patienceTween.resume();
+        // Restore normal speed after mini-game
+        if (this.patienceTween) {
+            this.patienceTween.timeScale = 1.0; // Back to normal speed
         }
 
-        // Resume the rage tween if it's paused
-        if (this.rageTween && this.rageTween.isPaused()) {
-            this.rageTween.resume();
+        if (this.rageTween) {
+            this.rageTween.timeScale = 1.0;
         }
-    
-        this.scene.resume();
     }
     
 
     rewardPatience(amount) {
-        // Check if the bar is already full
         if (this.patienceBar.value >= this.patienceBar.maxValue) {
             console.log("Patience is already full! No need to increase.");
-            return; // Exit function early
+            return;
         }
     
-        // Stop any active patience decrease to prevent conflicts
         if (this.patienceTween) {
             this.patienceTween.stop();
         }
     
-        // Stop the rage increase since patience is rewarded
         this.stopRageIncrease();
     
-        // Ensure patience does not exceed the max value
         let newPatienceValue = Math.min(this.patienceBar.value + amount, this.patienceBar.maxValue);
     
-        // Smoothly increase patience
         this.patienceBar.increase(newPatienceValue - this.patienceBar.value, 1000);
     
-        // Calculate the remaining duration for decrease
         let patiencePercentageLeft = newPatienceValue / this.patienceBar.maxValue;
-        let remainingDuration = patiencePercentageLeft * 10000; // Adjusted decrease time
-    
-        // Restart patience decrease after a delay with adjusted speed
+        let remainingDuration = patiencePercentageLeft * 10000;
+
         this.time.delayedCall(2000, () => {
             this.patienceTween = this.smoothDecrease(this.patienceBar, 0, remainingDuration);
         });
     }
-}    
+}
