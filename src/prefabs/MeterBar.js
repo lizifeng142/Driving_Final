@@ -5,30 +5,58 @@ class MeterBar {
         this.height = height;
         this.maxValue = 100;
 
-        // Create the background bar (gray)
+        // Background bar (gray)
         this.bgBar = scene.add.rectangle(x, y, width, height, 0x555555).setOrigin(0, 0.5);
 
-        // Create the fill bar (dynamic)
-        this.fillBar = scene.add.rectangle(x, y, width * (startValue / this.maxValue), height, color).setOrigin(0, 0.5);
+        // Fill bar (color)
+        this.fillBar = scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0.5);
 
-        this.value = startValue; // Set initial value
+        this.value = startValue;
+        this.fillBar.scaleX = this.value / this.maxValue; // Initialize scale
+
+        this.tween = null; // Store the tween reference
     }
 
-    // Decrease bar value
-    decrease(amount) {
-        this.value = Math.max(0, this.value - amount);
-        this.updateBar();
+    // Smoothly decrease bar value
+    decrease(amount, duration = 1000) {
+        let newValue = Math.max(0, this.value - amount);
+        this.tween = this.scene.tweens.add({
+            targets: this,
+            value: newValue,
+            duration: duration,
+            ease: "Linear",
+            onUpdate: () => this.updateBar()
+        });
     }
 
-    // Increase bar value
-    increase(amount) {
-        this.value = Math.min(this.maxValue, this.value + amount);
-        this.updateBar();
+    // Smoothly increase bar value
+    increase(amount, duration = 1000) {
+        let newValue = Math.min(this.maxValue, this.value + amount);
+        this.tween = this.scene.tweens.add({
+            targets: this,
+            value: newValue,
+            duration: duration,
+            ease: "Linear",
+            onUpdate: () => this.updateBar()
+        });
     }
 
-    // Update the bar visually
+    // Pause the tween (when mini-game starts)
+    pause() {
+        if (this.tween) {
+            this.tween.pause();
+        }
+    }
+
+    // Resume the tween (when mini-game ends)
+    resume() {
+        if (this.tween) {
+            this.tween.resume();
+        }
+    }
+
+    // Update the visual bar
     updateBar() {
-        let fillWidth = (this.value / this.maxValue) * this.width;
-        this.fillBar.width = fillWidth;
+        this.fillBar.scaleX = this.value / this.maxValue;
     }
 }
