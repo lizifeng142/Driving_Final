@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "cloudAnim", 
             frames: this.anims.generateFrameNumbers("sky", {start: 0, end: 5}), 
-            frameRate: 6,
+            frameRate: 2,
             repeat: -1
         })
 
@@ -26,6 +26,41 @@ class Play extends Phaser.Scene {
             frameRate: 3,
             repeat: -1
         })
+
+        // Adding the animated sprites as the backgrounds - tree
+        this.trees = this.add.sprite(640, 380, "tree").setOrigin(0.5, 0.5)
+
+        // Adding animation for background 
+        this.anims.create({
+            key: "treesAnim", 
+            frames: this.anims.generateFrameNumbers("tree", {start: 0, end: 2}), 
+            frameRate: 6,
+            repeat: -1
+        })
+
+        // Adding the animated sprites as the backgrounds - bus
+        this.bus = this.add.sprite(640, 380, "bus").setOrigin(0.5, 0.5)
+
+        // Adding animation for background 
+        this.anims.create({
+            key: "busAnim", 
+            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 3}), 
+            frameRate: 3,
+            repeat: -1
+        })
+
+        // Adding the animated sprites as the backgrounds - bus
+        this.car = this.add.sprite(640, 380, "car").setOrigin(0.5, 0.5)
+
+        // Adding animation for background 
+        this.anims.create({
+            key: "carAnim", 
+            frames: this.anims.generateFrameNumbers("car", {start: 0, end: 2}), 
+            frameRate: 2,
+            repeat: -1
+        })
+
+
 
         // Create patience and rage bars
         this.patienceBar = new MeterBar(this, 50, 50, 200, 20, 0x00ff00, 100);
@@ -44,6 +79,9 @@ class Play extends Phaser.Scene {
         // playing animation, test? 
         this.clouds.play("cloudAnim")
         this.roads.play("roadAnim")
+        this.trees.play("treesAnim")
+        this.bus.play("busAnim")
+        this.car.play("carAnim")
 
          
     }
