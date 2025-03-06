@@ -55,8 +55,16 @@ class MeterBar {
         }
     }
 
-    // Update the visual bar
     updateBar() {
-        this.fillBar.scaleX = this.value / this.maxValue;
+        this.fillBar.scaleX = Math.max(this.value / this.maxValue, 0); // Ensure scaleX does not go negative
+    
+        // ✅ Only update the correct bar
+        if (this.scene.patienceBar === this) {
+            this.scene.patienceBar.value = this.value; // Keep patience value in sync
+        } else if (this.scene.rageBar === this) {
+            this.scene.rageBar.value = this.value; // Keep rage value in sync
+        }
     }
+    
+    
 }

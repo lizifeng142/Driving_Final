@@ -3,6 +3,8 @@ class EventManager extends Phaser.Scene {
         super("EventManagerScene");
         this.currentEvent = null; // Stores the active event
         this.eventActive = false; // Flag to prevent new events while one is active
+        this.eventCount = 0; // Tracks how many events have triggered
+        this.patienceDepleted = false; // Tracks if patience has ever hit 0
     }
 
     create() {
@@ -10,10 +12,10 @@ class EventManager extends Phaser.Scene {
         this.eventText = this.add.text(640, 100, "Waiting for an event...", {
             fontSize: "24px",
             fill: "#fff",
-            backgroundColor: "#00000080" // Adds slight transparency to text background
+            backgroundColor: "#00000080"
         }).setOrigin(0.5);
 
-        // Generate a new event after 5 seconds
+        // Generate a new event after 3 seconds
         this.scheduleNextEvent();
     }
 
@@ -23,19 +25,41 @@ class EventManager extends Phaser.Scene {
         }
     }
 
+    unlockAllEvents() {
+        console.log("EventManager: Unlocking all events!");
+        this.patienceDepleted = true; // Set flag so all events are available
+    }
+
     triggerRandomEvent() {
         if (this.eventActive) return; // Prevents triggering a new event if one is ongoing
 
-        let events = [
-            { text: "It's too hot in here!", miniGame: "MiniGameScene" },
-            { text: "It's freezing!", miniGame: "MiniGameScene" },
-            { text: "The music is too loud!", miniGame: "MiniGameScene" },
-            { text: "Ugh! The static is killing me!", miniGame: "MiniGameScene" }
+        let miniGameEvents = [
+            { text: "It's too hot in here! The heat is unbearable!", miniGame: "MiniGameScene" },
+            { text: "It's freezing! I can't feel my hands!", miniGame: "MiniGameScene" },
+            { text: "The air feels stuffy, it's making me uncomfortable.", miniGame: "MiniGameScene" }
         ];
 
-        // Pick a random event
-        this.currentEvent = Phaser.Utils.Array.GetRandom(events);
+        let allEvents = [
+            { text: "The music is too loud! It's giving me a headache!", miniGame: "MiniGameScene2" },
+            { text: "Ugh! The static is killing me! It’s so annoying!", miniGame: "MiniGameScene2" },
+            { text: "The radio is full of static... I can't hear anything clearly.", miniGame: "MiniGameScene2" }
+        ];
+
+        let eventPool;
+
+        // Before patience hits 0, only allow "miniGameEvents"
+        if (!this.patienceDepleted) {
+            eventPool = miniGameEvents;
+        } else {
+            eventPool = [...miniGameEvents, ...allEvents]; // Unlock all events after patience depletion
+        }
+
+        // Pick a random valid event
+        this.currentEvent = Phaser.Utils.Array.GetRandom(eventPool);
         this.eventActive = true; // Mark event as active
+        this.eventCount++; // Increase event count
+
+        console.log(`Triggered Event: ${this.currentEvent.text}`); // Debugging
 
         // Display the event
         this.eventText.setText(this.currentEvent.text).setVisible(true);
@@ -46,13 +70,13 @@ class EventManager extends Phaser.Scene {
     }
 
     handleMiniGameStart() {
-        this.eventText.setVisible(false); // Hide text while in mini-game
+        this.eventText.setVisible(false);
     }
 
     handleMiniGameEnd() {
-        this.eventText.setVisible(true); // Show event text again
-        this.currentEvent = null; // Reset the current event
-        this.eventActive = false; // Allow new events
-        this.scheduleNextEvent(); // Schedule next event
+        this.eventText.setVisible(false);
+        this.currentEvent = null;
+        this.eventActive = false;
+        this.scheduleNextEvent();
     }
 }
