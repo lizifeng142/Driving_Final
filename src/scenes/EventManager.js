@@ -26,7 +26,6 @@ class EventManager extends Phaser.Scene {
     }
 
     unlockAllEvents() {
-        console.log("EventManager: Unlocking all events!");
         this.patienceDepleted = true; // Set flag so all events are available
     }
 
@@ -40,9 +39,9 @@ class EventManager extends Phaser.Scene {
         ];
 
         let allEvents = [
-            { text: "The music is too loud! It's giving me a headache!", miniGame: "MiniGameScene2" },
-            { text: "Ugh! The static is killing me! It’s so annoying!", miniGame: "MiniGameScene2" },
-            { text: "The radio is full of static... I can't hear anything clearly.", miniGame: "MiniGameScene2" }
+        { text: "The music is too loud! It's giving me a headache!", miniGame: "MiniGameScene2", isStatic: true },
+        { text: "Ugh! The static is killing me! It’s so annoying!", miniGame: "MiniGameScene2", isStatic: true },
+        { text: "The radio is full of static... I can't hear anything clearly.", miniGame: "MiniGameScene2", isStatic: true }
         ];
 
         let eventPool;
@@ -59,7 +58,9 @@ class EventManager extends Phaser.Scene {
         this.eventActive = true; // Mark event as active
         this.eventCount++; // Increase event count
 
-        console.log(`Triggered Event: ${this.currentEvent.text}`); // Debugging
+        if (this.currentEvent.isStatic) {
+            this.scene.get("playScene").playStaticSound();
+        }
 
         // Display the event
         this.eventText.setText(this.currentEvent.text).setVisible(true);
@@ -78,5 +79,8 @@ class EventManager extends Phaser.Scene {
         this.currentEvent = null;
         this.eventActive = false;
         this.scheduleNextEvent();
+    
+        // Resume background music when the event ends
+        this.scene.get("playScene").resumeBackgroundMusic();
     }
 }

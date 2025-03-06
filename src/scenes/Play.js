@@ -67,7 +67,10 @@ class Play extends Phaser.Scene {
         this.rageBar = new MeterBar(this, 50, 80, 200, 20, 0xff0000, 0);
 
         this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.4 });
+        this.backgroundMusic = this.sound.add("backgroundMusic", { loop: true, volume: 0.5 });
+        this.staticSound = this.sound.add("staticSound", { loop: true, volume: 0.8 });
         this.drivingSound.play();
+        this.backgroundMusic.play();
 
         this.events.on("shutdown", () => {
             this.drivingSound.stop();
@@ -98,6 +101,28 @@ class Play extends Phaser.Scene {
         this.bus.play("busAnim");
         this.car.play("carAnim");
     }
+
+    playStaticSound() {
+    
+        // Stop background music and play static
+        if (this.backgroundMusic.isPlaying) {
+            this.backgroundMusic.pause();
+        }
+        if (!this.staticSound.isPlaying) {
+            this.staticSound.play();
+        }
+    }
+    
+    resumeBackgroundMusic() {
+    
+        // Stop static sound and resume background music
+        if (this.staticSound.isPlaying) {
+            this.staticSound.stop();
+        }
+        if (this.backgroundMusic.isPaused) {
+            this.backgroundMusic.resume();
+    }
+}
 
     startMiniGame() {
         let eventManager = this.scene.get("EventManagerScene");
@@ -141,14 +166,12 @@ class Play extends Phaser.Scene {
                 if (bar === this.patienceBar) {
                     if (bar.value === 0) {
                         if (this.rageBar.value < this.rageBar.maxValue && !this.rageIncreasing) {
-                            console.log("Patience hit 0, ensuring rage continues increasing.");
                             this.rageIncreasing = true; // Prevent multiple triggers
                             this.startRageIncrease();
                         }
 
                         // ✅ Unlock all events when patience first hits 0
                         if (!this.patienceDepleted) {
-                            console.log("Patience has reached 0! Unlocking all events.");
                             this.patienceDepleted = true;
                             this.scene.get("EventManagerScene").unlockAllEvents(); // Notify EventManager
                         }
@@ -157,13 +180,11 @@ class Play extends Phaser.Scene {
 
                 // ✅ Prevent rage from automatically resetting if patience drains again
                 if (bar === this.rageBar && bar.value === 0) {
-                    console.log("Rage hit 0, stopping decrease but not resetting.");
                     this.stopRageDecrease();
                 }
             },
             onComplete: () => {
                 if (bar === this.patienceBar && bar.value === 0) {
-                    console.log("Patience fully depleted again, allowing rage increase to continue.");
                     this.rageIncreasing = false; // Allow rage increase to continue
                 }
             }
@@ -183,12 +204,10 @@ class Play extends Phaser.Scene {
             return;
         }
 
-        console.log("Starting Rage Increase...");
         this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 20000);
     }
 
     triggerGameOver() {
-        console.log("GAME OVER TRIGGERED: Rage hit 100!");
         this.scene.start("GameOverScene");
     }
 
@@ -214,10 +233,8 @@ class Play extends Phaser.Scene {
             ease: "Linear",
             onUpdate: () => {
                 bar.updateBar();
-                console.log(`Rage Bar Updating: ${bar.value}`); // Debugging
 
                 if (bar === this.rageBar && bar.value >= bar.maxValue) {
-                    console.log("Rage Bar reached max, triggering game over.");
                     this.triggerGameOver();
                 }
             }
@@ -240,7 +257,6 @@ class Play extends Phaser.Scene {
 
     rewardPatience(amount) {
         if (this.patienceBar.value >= this.patienceBar.maxValue) {
-            console.log("Patience is already full! No need to increase.");
             return;
         }
 
@@ -265,7 +281,6 @@ class Play extends Phaser.Scene {
 
     rageReward(amount) {
         if (this.rageBar.value === 0) {
-            console.log("Rage is already at minimum! No need to decrease.");
             return;
         }
 
@@ -282,7 +297,6 @@ class Play extends Phaser.Scene {
 
         this.time.delayedCall(1000, () => {
             if (this.patienceBar.value === 0 && this.rageBar.value < this.rageBar.maxValue) {
-                console.log("Restarting rage increase after reward.");
                 this.startRageIncrease();
             }
         });

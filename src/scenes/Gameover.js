@@ -4,8 +4,11 @@ class Gameover extends Phaser.Scene {
     }
 
     create() {
+        // Stop all sounds when game over is triggered
+        this.sound.stopAll();
+
         // Add a full-screen black background
-        this.add.rectangle(640, 360, 1280, 720, 0x000000).setOrigin(0.5); 
+        this.add.rectangle(640, 360, 1280, 720, 0x000000).setOrigin(0.5);
 
         // Display "GAME OVER" text in red
         this.add.text(640, 300, "GAME OVER", { 
