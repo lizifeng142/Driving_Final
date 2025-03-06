@@ -5,14 +5,6 @@ class Play extends Phaser.Scene {
 
     create() {
        
-        
-        // Create patience and rage bars
-        this.patienceBar = new MeterBar(this, 50, 50, 200, 20, 0x00ff00, 100);
-        this.rageBar = new MeterBar(this, 50, 80, 200, 20, 0xff0000, 0);
-
-        // Start smooth decrease of patience over 20 seconds
-        this.startPatienceDecrease();
-
         // Adding the animated sprites as the backgrounds - sky 
         this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5)
 
@@ -35,15 +27,23 @@ class Play extends Phaser.Scene {
             repeat: -1
         })
 
-        // playing animation, test? 
-        this.clouds.play("cloudAnim")
-        this.roads.play("roadAnim")
-    
+        // Create patience and rage bars
+        this.patienceBar = new MeterBar(this, 50, 50, 200, 20, 0x00ff00, 100);
+        this.rageBar = new MeterBar(this, 50, 80, 200, 20, 0xff0000, 0);
 
+        // Start smooth decrease of patience over 20 seconds
+        this.startPatienceDecrease();
+
+        
         // Mini-game button
         this.miniGameButton = this.add.text(800, 600, "Start Mini-Game", { fontSize: "24px", fill: "#fff" })
             .setInteractive()
             .on("pointerdown", () => this.startMiniGame());
+
+
+        // playing animation, test? 
+        this.clouds.play("cloudAnim")
+        this.roads.play("roadAnim")
 
          
     }
