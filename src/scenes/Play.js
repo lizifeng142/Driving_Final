@@ -25,7 +25,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "roadAnim", 
             frames: this.anims.generateFrameNumbers("road", {start: 0, end: 1}), 
-            frameRate: 3,
+            frameRate: 10,
             repeat: -1
         });
 
@@ -36,7 +36,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "treesAnim", 
             frames: this.anims.generateFrameNumbers("tree", {start: 0, end: 2}), 
-            frameRate: 6,
+            frameRate: 18,
             repeat: -1
         });
 
@@ -47,7 +47,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "busAnim", 
             frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 2}), 
-            frameRate: 3,
+            frameRate: 2,
             repeat: -1
         });
 
