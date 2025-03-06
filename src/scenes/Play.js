@@ -44,7 +44,7 @@ class Play extends Phaser.Scene {
         // Adding animation for background 
         this.anims.create({
             key: "busAnim", 
-            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 3}), 
+            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 2}), 
             frameRate: 3,
             repeat: -1
         })
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
         // Adding animation for background 
         this.anims.create({
             key: "carAnim", 
-            frames: this.anims.generateFrameNumbers("car", {start: 0, end: 2}), 
+            frames: this.anims.generateFrameNumbers("car", {start: 0, end: 1}), 
             frameRate: 2,
             repeat: -1
         })
@@ -156,11 +156,11 @@ class Play extends Phaser.Scene {
     resumeGame() {
         // Restore normal speed after mini-game
         if (this.patienceTween) {
-            this.patienceTween.timeScale = 1.0; // Back to normal speed
+            this.patienceTween.timeScale = 0.3; // Back to normal speed
         }
 
         if (this.rageTween) {
-            this.rageTween.timeScale = 1.0;
+            this.rageTween.timeScale = 0.3;
         }
     }
     
@@ -182,10 +182,11 @@ class Play extends Phaser.Scene {
         this.patienceBar.increase(newPatienceValue - this.patienceBar.value, 1000);
     
         let patiencePercentageLeft = newPatienceValue / this.patienceBar.maxValue;
-        let remainingDuration = patiencePercentageLeft * 10000;
-
+        let remainingDuration = patiencePercentageLeft * 20000; // Ensures consistent speed
+    
         this.time.delayedCall(2000, () => {
             this.patienceTween = this.smoothDecrease(this.patienceBar, 0, remainingDuration);
+            this.patienceTween.timeScale = 1.0;  // Reset timeScale to normal
         });
     }
 }
