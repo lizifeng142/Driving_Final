@@ -69,8 +69,18 @@ class Play extends Phaser.Scene {
         // Start smooth decrease of patience over 20 seconds
         this.startPatienceDecrease();
 
-        // Mini-game button (Modified to check EventManager)
-        this.miniGameButton = this.add.text(800, 600, "Start Mini-Game", { fontSize: "24px", fill: "#fff" })
+        // Create the image (non-interactive)
+        this.miniGameButton = this.add.image(640, 380, "startMiniGame").setOrigin(0.5).setScale(1);
+
+        // Define hitbox size & position (Adjust X, Y, width, height)
+        let hitboxX = 820;  // X position (adjust as needed)
+        let hitboxY = 620;  // Y position (adjust as needed)
+        let hitboxWidth = 300;  // Adjust width
+        let hitboxHeight = 175;  // Adjust height
+
+        // Create a visible hitbox (DEBUG: Use red color with 50% transparency)
+        this.miniGameHitbox = this.add.rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight, 0xff0000, 0.0)
+            .setOrigin(0.5)
             .setInteractive()
             .on("pointerdown", () => this.startMiniGame());
 
