@@ -66,6 +66,13 @@ class Play extends Phaser.Scene {
         this.patienceBar = new MeterBar(this, 50, 50, 200, 20, 0x00ff00, 100);
         this.rageBar = new MeterBar(this, 50, 80, 200, 20, 0xff0000, 0);
 
+        this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.4 });
+        this.drivingSound.play();
+
+        this.events.on("shutdown", () => {
+            this.drivingSound.stop();
+        })
+
         // Start smooth decrease of patience over 20 seconds
         this.startPatienceDecrease();
 

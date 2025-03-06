@@ -29,24 +29,24 @@ class MiniGame2 extends Phaser.Scene {
     }
 
     createChannelHitboxes() {
-        const baseY = 400; // Move up so hitboxes fit inside the minigameBg
-        const spacing = 60; // Space them properly
-
-        this.radioSettings.forEach((channel, index) => {
-            let yPos = baseY + index * spacing;
-
-            // Create an interactive hitbox for each channel
-            let hitbox = this.add.rectangle(640, yPos, 180, 40, 0x0000ff, 0.5)
+        // Define exact positions for each button on the radio interface
+        const hitboxes = [
+            { channel: "AM", x: 520, y: 405, width: 100, height: 50 },   // AM Button
+            { channel: "FM", x: 770, y: 410, width: 100, height: 50 },   // FM Button
+            { channel: "AUX", x: 770, y: 470, width: 100, height: 50 },  // AUX Button
+            { channel: "UP", x: 0, y: 300, width: 100, height: 50 },    // Up Arrow Button
+            { channel: "DOWN", x: 0, y: 440, width: 100, height: 50 }   // Down Arrow Button
+        ];
+    
+        hitboxes.forEach(({ channel, x, y, width, height }) => {
+            // Create an interactive hitbox
+            let hitbox = this.add.rectangle(x, y, width, height, 0xff0000, 0)
+                .setOrigin(0.5)
                 .setInteractive()
                 .on("pointerdown", () => this.selectChannel(channel));
-
-            // Add the channel text label
-            this.add.text(640, yPos, channel, {
-                fontSize: "20px",
-                fill: "#ffffff"
-            }).setOrigin(0.5);
         });
     }
+    
 
     startRadioTuningEvent() {
         // Randomly select the correct channel
