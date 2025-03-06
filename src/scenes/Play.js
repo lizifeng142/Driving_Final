@@ -44,8 +44,8 @@ class Play extends Phaser.Scene {
         // Adding animation for background 
         this.anims.create({
             key: "busAnim", 
-            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 2}), 
-            frameRate: 3,
+            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 1}), 
+            frameRate: 2,
             repeat: -1
         })
 
@@ -69,8 +69,7 @@ class Play extends Phaser.Scene {
         // Start smooth decrease of patience over 20 seconds
         this.startPatienceDecrease();
 
-        
-        // Mini-game button
+        //Mini-game button 
         this.miniGameButton = this.add.text(800, 600, "Start Mini-Game", { fontSize: "24px", fill: "#fff" })
             .setInteractive()
             .on("pointerdown", () => this.startMiniGame());

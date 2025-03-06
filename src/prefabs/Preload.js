@@ -5,7 +5,8 @@ class Preload extends Phaser.Scene {
 
     preload() {
 
-       
+        // Start button ("startMiniGame.png")
+        this.load.image("startMiniGame","assets/startMiniGameOne.png")
 
         // Load background image 
         this.load.image("minigameBg", "assets/Minigame_Background.PNG"); 
@@ -29,7 +30,7 @@ class Preload extends Phaser.Scene {
         })
 
         // Load bus sprite sheet ("busAnim.png")
-        this.load.spritesheet("bus","assets/busAnim.png", {
+        this.load.spritesheet("bus","assets/busMiniMove.png", {
             frameWidth: 1280,
             frameHeight: 720
         })
@@ -39,6 +40,8 @@ class Preload extends Phaser.Scene {
             frameWidth: 1280,
             frameHeight: 720
         })
+
+
 
 
         
@@ -55,6 +58,9 @@ class Preload extends Phaser.Scene {
             frameHeight: 500,
             endFrame: 8       
         });
+
+        // Start button ("startMiniGame.png")
+        this.load.image("startMiniGame","assets/startMiniGameOne.png")
 
        
     }
