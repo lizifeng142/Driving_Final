@@ -58,7 +58,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "carAnim", 
             frames: this.anims.generateFrameNumbers("car", {start: 0, end: 1}), 
-            frameRate: 2,
+            frameRate: 3,
             repeat: -1
         });
 
