@@ -86,7 +86,7 @@ class MiniGame extends Phaser.Scene {
             this.targetText.setText("Correct! Patience +20");
 
             // Reward patience & exit game after a short delay
-            this.parentScene.rewardPatience(10);
+            this.parentScene.rewardPatience(20);
             this.time.delayedCall(1000, () => this.exitMiniGame(), [], this);
         }
     }

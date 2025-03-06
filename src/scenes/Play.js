@@ -4,9 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-       
+        // **Start the EventManager (added)**
+        this.scene.launch("EventManagerScene");
+
         // Adding the animated sprites as the backgrounds - sky 
-        this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5)
+        this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5);
 
         // Adding animation for background 
         this.anims.create({
@@ -14,10 +16,10 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("sky", {start: 0, end: 5}), 
             frameRate: 2,
             repeat: -1
-        })
+        });
 
         // Adding the animated sprites as the backgrounds - road
-        this.roads = this.add.sprite(640, 380, "road").setOrigin(0.5, 0.5)
+        this.roads = this.add.sprite(640, 380, "road").setOrigin(0.5, 0.5);
 
         // Adding animation for background 
         this.anims.create({
@@ -25,10 +27,10 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("road", {start: 0, end: 1}), 
             frameRate: 3,
             repeat: -1
-        })
+        });
 
         // Adding the animated sprites as the backgrounds - tree
-        this.trees = this.add.sprite(640, 380, "tree").setOrigin(0.5, 0.5)
+        this.trees = this.add.sprite(640, 380, "tree").setOrigin(0.5, 0.5);
 
         // Adding animation for background 
         this.anims.create({
@@ -36,21 +38,21 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("tree", {start: 0, end: 2}), 
             frameRate: 6,
             repeat: -1
-        })
+        });
 
         // Adding the animated sprites as the backgrounds - bus
-        this.bus = this.add.sprite(640, 380, "bus").setOrigin(0.5, 0.5)
+        this.bus = this.add.sprite(640, 380, "bus").setOrigin(0.5, 0.5);
 
         // Adding animation for background 
         this.anims.create({
             key: "busAnim", 
-            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 1}), 
-            frameRate: 2,
+            frames: this.anims.generateFrameNumbers("bus", {start: 0, end: 2}), 
+            frameRate: 3,
             repeat: -1
-        })
+        });
 
-        // Adding the animated sprites as the backgrounds - bus
-        this.car = this.add.sprite(640, 380, "car").setOrigin(0.5, 0.5)
+        // Adding the animated sprites as the backgrounds - car
+        this.car = this.add.sprite(640, 380, "car").setOrigin(0.5, 0.5);
 
         // Adding animation for background 
         this.anims.create({
@@ -58,9 +60,7 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("car", {start: 0, end: 1}), 
             frameRate: 2,
             repeat: -1
-        })
-
-
+        });
 
         // Create patience and rage bars
         this.patienceBar = new MeterBar(this, 50, 50, 200, 20, 0x00ff00, 100);
@@ -69,20 +69,27 @@ class Play extends Phaser.Scene {
         // Start smooth decrease of patience over 20 seconds
         this.startPatienceDecrease();
 
-        //Mini-game button 
+        // Mini-game button (Modified to check EventManager)
         this.miniGameButton = this.add.text(800, 600, "Start Mini-Game", { fontSize: "24px", fill: "#fff" })
             .setInteractive()
             .on("pointerdown", () => this.startMiniGame());
 
-
         // playing animation, test? 
-        this.clouds.play("cloudAnim")
-        this.roads.play("roadAnim")
-        this.trees.play("treesAnim")
-        this.bus.play("busAnim")
-        this.car.play("carAnim")
+        this.clouds.play("cloudAnim");
+        this.roads.play("roadAnim");
+        this.trees.play("treesAnim");
+        this.bus.play("busAnim");
+        this.car.play("carAnim");
+    }
 
-         
+    startMiniGame() {
+        let eventManager = this.scene.get("EventManagerScene");
+        let selectedMiniGame = eventManager.getActiveMiniGame();
+    
+        if (selectedMiniGame) {
+            eventManager.handleMiniGameStart(); // Hide event text
+            this.scene.launch(selectedMiniGame, { parentScene: this });
+        }
     }
 
     startPatienceDecrease() {
@@ -95,7 +102,7 @@ class Play extends Phaser.Scene {
         if (this.patienceTween) {
             this.patienceTween.stop(); // Stop any existing tween
         }
-    
+
         this.patienceTween = this.tweens.add({
             targets: bar,
             value: targetValue,
@@ -110,7 +117,7 @@ class Play extends Phaser.Scene {
                 }
             }
         });
-    
+
         return this.patienceTween;
     }
 
@@ -138,54 +145,39 @@ class Play extends Phaser.Scene {
         });
     }
 
-    startMiniGame() {
-        // Slow down the decrease rate instead of pausing
-        if (this.patienceTween && this.patienceTween.isPlaying()) {
-            this.patienceTween.timeScale = 0.3; // 30% of original speed
-        }
-
-        // Slow down rage increase if active
-        if (this.rageTween && this.rageTween.isPlaying()) {
-            this.rageTween.timeScale = 0.3;
-        }
-    
-        this.scene.launch("MiniGameScene", { parentScene: this });
-    }
-    
     resumeGame() {
-        // Restore normal speed after mini-game
+        let eventManager = this.scene.get("EventManagerScene");
+        eventManager.handleMiniGameEnd(); // Show event text & allow new events
+    
         if (this.patienceTween) {
-            this.patienceTween.timeScale = 0.3; // Back to normal speed
+            this.patienceTween.timeScale = 1.0;
         }
-
         if (this.rageTween) {
-            this.rageTween.timeScale = 0.3;
+            this.rageTween.timeScale = 1.0;
         }
     }
-    
 
     rewardPatience(amount) {
         if (this.patienceBar.value >= this.patienceBar.maxValue) {
             console.log("Patience is already full! No need to increase.");
             return;
         }
-    
+
         if (this.patienceTween) {
             this.patienceTween.stop();
         }
-    
+
         this.stopRageIncrease();
-    
+
         let newPatienceValue = Math.min(this.patienceBar.value + amount, this.patienceBar.maxValue);
-    
         this.patienceBar.increase(newPatienceValue - this.patienceBar.value, 1000);
-    
+
         let patiencePercentageLeft = newPatienceValue / this.patienceBar.maxValue;
-        let remainingDuration = patiencePercentageLeft * 20000; // Ensures consistent speed
-    
+        let remainingDuration = patiencePercentageLeft * 20000;
+
         this.time.delayedCall(2000, () => {
             this.patienceTween = this.smoothDecrease(this.patienceBar, 0, remainingDuration);
-            this.patienceTween.timeScale = 1.0;  // Reset timeScale to normal
+            this.patienceTween.timeScale = 1.0;
         });
     }
 }
