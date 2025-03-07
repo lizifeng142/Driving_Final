@@ -87,6 +87,23 @@ class MiniGame extends Phaser.Scene {
             fontStyle: "bold"
         }).setOrigin(0.5, 0.5);
 
+        //Display the goal temperature - Auto side 
+        
+        this.targetText = this.add.text(380, 340, `Set to: ${this.targetTemp1}°`, {
+            fontSize: "20px",
+            fill: "#fff",
+            fontStyle: "bold"
+        }).setOrigin(0.5, 0.5);
+
+        //Display the goal temps test - A.C. side 
+        this.targetText = this.add.text(920, 340, `Set to: ${this.targetTemp2}°`, {
+            fontSize: "20px",
+            fill: "#fff",
+            fontStyle: "bold"
+        }).setOrigin(0.5, 0.5);
+
+
+
         // Ensure the text appears in front of the background
         this.targetText.setDepth(1);
 
@@ -98,7 +115,12 @@ class MiniGame extends Phaser.Scene {
             this.temperatures1[this.knobFrame1] === this.targetTemp1 &&
             this.temperatures2[this.knobFrame2] === this.targetTemp2
         ) {
-            this.targetText.setText("Correct! Patience +20");
+            this.targetText = this.add.text(640, 340, `Correct! Patience +20`, {
+                fontSize: "22px",
+                fill: "#fff",
+                fontStyle: "bold"
+            }).setOrigin(0.5, 0.5);
+            //this.targetText.setText("Correct! Patience +20");
 
             // Reward patience & exit game after a short delay
             this.parentScene.rewardPatience(20);

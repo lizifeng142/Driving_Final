@@ -4,6 +4,7 @@ class Preload extends Phaser.Scene {
     }
 
     preload() {
+
         this.load.audio("drivingSound", "assets/driving.wav");
 
         this.load.audio("backgroundMusic", "assets/music.wav");

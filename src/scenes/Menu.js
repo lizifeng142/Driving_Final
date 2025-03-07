@@ -76,6 +76,7 @@ class Menu extends Phaser.Scene {
             color: 'black',
             align: 'center',
         }
+    
 
         // Add a start button
         let startButton = this.add.text(820, 590, 'Start Game', twoLook)
