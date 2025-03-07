@@ -33,6 +33,31 @@ class Preload extends Phaser.Scene {
             frameHeight: 720
         })
 
+        
+        // Load title screen bus sheet ("titleBus.png")
+        this.load.spritesheet("titleBus","assets/titleBus.PNG", {
+            frameWidth: 1280,
+            frameHeight: 720
+        })
+
+        // Load title screen bus sheet ("titleCar.png") - for menu screen
+        this.load.spritesheet("titleCar","assets/titleCar.PNG", {
+            frameWidth: 1280,
+            frameHeight: 720
+        })
+
+        // Load title screen bus sheet ("busBlank.png") - for game over
+        this.load.spritesheet("busBlank","assets/busBlank.PNG", {
+            frameWidth: 1280,
+            frameHeight: 720
+        })
+
+        // Load title screen bus sheet ("gameOver.png") - for game over & credits 
+        this.load.spritesheet("gameOverCar","assets/gameOver.PNG", {
+            frameWidth: 1280,
+            frameHeight: 720
+        })
+
         // Load bus sprite sheet ("busAnim.png")
         this.load.spritesheet("bus","assets/busMiniMove.png", {
             frameWidth: 1280,
@@ -64,6 +89,7 @@ class Preload extends Phaser.Scene {
             frameHeight: 500,
             endFrame: 8       
         });
+
 
         // Start button ("startMiniGame.png")
         this.load.image("startMiniGame","assets/startMiniGameOne.png")
