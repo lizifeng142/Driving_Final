@@ -90,8 +90,6 @@ class MiniGame extends Phaser.Scene {
             fontStyle: "bold"
         }).setOrigin(0.5, 0.5);
 
-
-
         // Ensure the text appears in front of the background
         this.targetText.setDepth(1);
 

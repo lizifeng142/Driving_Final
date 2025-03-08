@@ -7,14 +7,28 @@ class Gameover extends Phaser.Scene {
         // Stop all sounds when game over is triggered
         this.sound.stopAll();
 
-        // Add a full-screen black background
-        this.add.rectangle(640, 360, 1280, 720, 0x000000).setOrigin(0.5);
+        // Adding the animated sprites as the backgrounds - sky 
+        this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5);
+
+        // Adding animation for background 
+        this.anims.create({
+            key: "go_cloudAnim",
+            frames: this.anims.generateFrameNumbers("sky", { start: 0, end: 5 }),
+            frameRate: 2,
+            repeat: -1
+        });
+
+        this.clouds.play("go_cloudAnim");
+
+
+
+        this.add.image(640, 380, "gameOverScene")
 
         // Display "GAME OVER" text in red
         this.add.text(640, 300, "GAME OVER", { 
             fontSize: "64px", 
-            fill: "#ff0000", 
-            fontStyle: "bold" 
+            fontStyle: "bold", 
+            fill: "#ff0000"
         }).setOrigin(0.5);
 
         // Instruction text
