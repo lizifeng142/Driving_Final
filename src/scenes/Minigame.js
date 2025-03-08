@@ -76,19 +76,7 @@ class MiniGame extends Phaser.Scene {
         let bgWidth = 300; // Width of the background
         let bgHeight = 40; // Height of the background
 
-        // Add a black rectangle behind the text
-        this.targetTextBg = this.add.rectangle(640, 100, bgWidth, bgHeight, 0x000000, 0.7)
-            .setOrigin(0.5, 0.5); // Center it behind the text
-
-        // Display the goal temperatures
-        this.targetText = this.add.text(640, 100, `Set to: ${this.targetTemp1}° & ${this.targetTemp2}°`, {
-            fontSize: "20px",
-            fill: "#fff",
-            fontStyle: "bold"
-        }).setOrigin(0.5, 0.5);
-
         //Display the goal temperature - Auto side 
-        
         this.targetText = this.add.text(380, 340, `Set to: ${this.targetTemp1}°`, {
             fontSize: "20px",
             fill: "#fff",

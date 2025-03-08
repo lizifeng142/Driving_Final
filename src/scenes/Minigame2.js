@@ -61,7 +61,7 @@ class MiniGame2 extends Phaser.Scene {
             .setOrigin(0.5); // Center the background
 
         // Display the objective text
-        this.targetText = this.add.text(640, 100, `Tune to: ${this.targetChannel}`, {
+        this.targetText = this.add.text(640, 200, `Tune to: ${this.targetChannel}`, {
             fontSize: "24px",
             fill: "#ffffff",
             fontStyle: "bold"
@@ -74,14 +74,32 @@ class MiniGame2 extends Phaser.Scene {
 
     selectChannel(channel) {
         if (channel === this.targetChannel) {
-            this.targetText.setText("Correct channel! Rage -20");
+            this.targetText = this.add.text(640, 350, "Correct channel! Rage -20", {
+                fontSize: "22px",
+                fill: "#fff",
+                fontStyle: "bold"
+            }).setOrigin(0.5, 0.5);
+            //this.targetText.setText("Correct channel! Rage -20");
             this.parentScene.rageReward(20); // Reward the player
             this.time.delayedCall(1000, () => this.exitMiniGame(), [], this);
         } else {
-            this.targetText.setText("Static detected! Try another channel.");
+            this.targetText = this.add.text(640, 540, "Static detected! Try another channel.", {
+                fontSize: "22px",
+                fill: "#fff",
+                fontStyle: "bold"
+            }).setOrigin(0.5, 0.5);
+            //this.targetText.setText("Static detected! Try another channel.");
         }
     }
 
+
+    /*this.targetText = this.add.text(640, 340, `Correct! Patience +20`, {
+        fontSize: "22px",
+        fill: "#fff",
+        fontStyle: "bold"
+    }).setOrigin(0.5, 0.5);
+    */
+    
     exitMiniGame() {
         this.scene.stop();
         this.parentScene.resumeGame();
