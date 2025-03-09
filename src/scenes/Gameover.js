@@ -3,7 +3,7 @@ class Gameover extends Phaser.Scene {
         super("GameOverScene");
     }
 
-    create(data) {  
+    create(data) {
         // Stop all sounds when game over is triggered
         this.sound.stopAll();
 
@@ -23,9 +23,9 @@ class Gameover extends Phaser.Scene {
         this.add.image(640, 380, "gameOverScene");
 
         // Display "GAME OVER" text
-        this.add.text(640, 250, "GAME OVER", { 
-            fontSize: "64px", 
-            fontStyle: "bold", 
+        this.add.text(640, 250, "GAME OVER", {
+            fontSize: "64px",
+            fontStyle: "bold",
             fill: "#ff0000"
         }).setOrigin(0.5);
 
@@ -69,7 +69,9 @@ class Gameover extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
 
         menuButton.on("pointerdown", () => {
+            console.log("Main Menu button clicked!");  // Debugging
             this.scene.start("menuScene"); // Go back to the Main Menu
         });
+
     }
 }
