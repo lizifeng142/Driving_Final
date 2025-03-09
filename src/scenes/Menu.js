@@ -5,7 +5,7 @@ class Menu extends Phaser.Scene {
 
     create() {
 
-        
+
 
         // Adding the animated sprites as the backgrounds - sky 
         this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5);
@@ -50,23 +50,23 @@ class Menu extends Phaser.Scene {
             repeat: -1
         });
 
-         // Adding the animated sprites as the backgrounds - car
-         this.car = this.add.sprite(640, 380, "titleCar").setOrigin(0.5, 0.5);
+        // Adding the animated sprites as the backgrounds - car
+        this.car = this.add.sprite(640, 380, "titleCar").setOrigin(0.5, 0.5);
 
-         // Adding animation for background - car with scenes 
-         this.anims.create({
-             key: "menu_carAnim",
-             frames: this.anims.generateFrameNumbers("titleCar", { start: 0, end: 1 }),
-             frameRate: 3,
-             repeat: -1
-         });
+        // Adding animation for background - car with scenes 
+        this.anims.create({
+            key: "menu_carAnim",
+            frames: this.anims.generateFrameNumbers("titleCar", { start: 0, end: 1 }),
+            frameRate: 3,
+            repeat: -1
+        });
 
-            // playing animation, test? 
+        // playing animation, test? 
         this.clouds.play("menu_cloudAnim");
         this.roads.play("menu_roadAnim");
         this.trees.play("menu_treesAnim");
-        this.bus.play("menu_titleBus");
-        this.car.play("menu_titleCar");
+        this.bus.play("menu_busAnim");
+        this.car.play("menu_carAnim");
 
         // placeholder text - will input font 
 
@@ -76,20 +76,29 @@ class Menu extends Phaser.Scene {
             color: 'black',
             align: 'center',
         }
-    
+
+        let savedHighScore = parseInt(localStorage.getItem("highScore")) || 0;
+        let minutes = Math.floor(savedHighScore / 60);
+        let seconds = savedHighScore % 60;
+        let formattedHighScore = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Display High Score on the menu with bold and improved visibility
+        this.add.text(150, 35, `Best Time: ${formattedHighScore}`, {
+            fontSize: "30px",       // Slightly larger text
+            fontStyle: "bold",      // Make it bold
+            fill: "#00FFFF",        // Bright cyan for visibility
+            stroke: "#000000",      // Black outline for contrast
+            strokeThickness: 4,     // Outline thickness
+        }).setOrigin(0.5, 0.5);
 
         // Add a start button
         let startButton = this.add.text(820, 590, 'Start Game', twoLook)
             .setOrigin(0.5)
             .setInteractive();
-            
+
         startButton.on('pointerdown', () => {
             this.scene.start('playScene');
         });
 
-
-
-
-        //
     }
 }

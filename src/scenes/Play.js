@@ -71,7 +71,7 @@ class Play extends Phaser.Scene {
             backgroundColor: '#FFFFFF',
             fill: "#1dbf20"
         }).setOrigin(0.5, 0.5);
-        
+
         this.rageBar = new MeterBar(this, 50, 140, 200, 20, 0xff0000, 0);
 
         // Patience meter bar text 
@@ -81,9 +81,9 @@ class Play extends Phaser.Scene {
             fill: "#ed1f0c"
         }).setOrigin(0.5, 0.5);
 
-        this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.4 });
-        this.backgroundMusic = this.sound.add("backgroundMusic", { loop: true, volume: 0.5 });
-        this.staticSound = this.sound.add("staticSound", { loop: true, volume: 0.8 });
+        this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.3 });
+        this.backgroundMusic = this.sound.add("backgroundMusic", { loop: true, volume: 0.3 });
+        this.staticSound = this.sound.add("staticSound", { loop: true, volume: 0.6 });
         this.drivingSound.play();
         this.backgroundMusic.play();
 
@@ -103,7 +103,6 @@ class Play extends Phaser.Scene {
         let hitboxWidth = 300;  // Adjust width
         let hitboxHeight = 175;  // Adjust height
 
-        // Create a visible hitbox (DEBUG: Use red color with 50% transparency)
         this.miniGameHitbox = this.add.rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight, 0xff0000, 0.0)
             .setOrigin(0.5)
             .setInteractive()
@@ -115,10 +114,46 @@ class Play extends Phaser.Scene {
         this.trees.play("treesAnim");
         this.bus.play("busAnim");
         this.car.play("carAnim");
+
+        this.elapsedTime = 0; // Track elapsed time in seconds
+
+        // Retrieve the saved high score (default to 0 if none exists)
+        this.highScore = localStorage.getItem("highScore") || 0;
+
+        // Display the timer
+        this.clockText = this.add.text(1070, 590, `00:00`, {
+            fontSize: "30px", 
+            fontStyle: "bold",
+            fill: "#00FF00",
+            stroke: "#000000",
+            strokeThickness: 4,
+        }).setOrigin(0.5, 0.5);
+
+        // Start a timer that updates every second
+        this.clockTimer = this.time.addEvent({
+            delay: 1000,  // 1 second
+            callback: this.updateClock,
+            callbackScope: this,
+            loop: true
+        });
+
+
     }
 
-    playStaticSound() {
+    updateClock() {
+        this.elapsedTime += 1;
     
+        let minutes = Math.floor(this.elapsedTime / 60);
+        let seconds = this.elapsedTime % 60;
+    
+        // Format to always show two digits (e.g., 01:05)
+        let formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        this.clockText.setText(formattedTime);
+    }
+    
+
+    playStaticSound() {
+
         // Stop background music and play static
         if (this.backgroundMusic.isPlaying) {
             this.backgroundMusic.pause();
@@ -127,17 +162,17 @@ class Play extends Phaser.Scene {
             this.staticSound.play();
         }
     }
-    
+
     resumeBackgroundMusic() {
-    
+
         // Stop static sound and resume background music
         if (this.staticSound.isPlaying) {
             this.staticSound.stop();
         }
         if (this.backgroundMusic.isPaused) {
             this.backgroundMusic.resume();
+        }
     }
-}
 
     startMiniGame() {
         let eventManager = this.scene.get("EventManagerScene");
@@ -185,7 +220,7 @@ class Play extends Phaser.Scene {
                             this.startRageIncrease();
                         }
 
-                        // ✅ Unlock all events when patience first hits 0
+                        //Unlock all events when patience first hits 0
                         if (!this.patienceDepleted) {
                             this.patienceDepleted = true;
                             this.scene.get("EventManagerScene").unlockAllEvents(); // Notify EventManager
@@ -193,7 +228,7 @@ class Play extends Phaser.Scene {
                     }
                 }
 
-                // ✅ Prevent rage from automatically resetting if patience drains again
+                //Prevent rage from automatically resetting if patience drains again
                 if (bar === this.rageBar && bar.value === 0) {
                     this.stopRageDecrease();
                 }
@@ -223,8 +258,18 @@ class Play extends Phaser.Scene {
     }
 
     triggerGameOver() {
-        this.scene.start("GameOverScene");
+        this.clockTimer.remove(false); // Stop the timer
+        
+        
+        this.scene.start("GameOverScene", { lastScore: this.elapsedTime });
+    
+        // Check for new high score
+        let previousHighScore = parseInt(localStorage.getItem("highScore")) || 0;
+        if (this.elapsedTime > previousHighScore) {
+            localStorage.setItem("highScore", this.elapsedTime); // Save new high score
+        }
     }
+    
 
 
 
