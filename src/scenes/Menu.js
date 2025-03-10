@@ -84,11 +84,11 @@ class Menu extends Phaser.Scene {
 
         // Display High Score on the menu with bold and improved visibility
         this.add.text(150, 35, `Best Time: ${formattedHighScore}`, {
-            fontSize: "30px",       // Slightly larger text
-            fontStyle: "bold",      // Make it bold
-            fill: "#00FFFF",        // Bright cyan for visibility
-            stroke: "#000000",      // Black outline for contrast
-            strokeThickness: 4,     // Outline thickness
+            fontSize: "30px",       
+            fontStyle: "bold",     
+            fill: "#00FFFF",        
+            stroke: "#000000",   
+            strokeThickness: 4,     
         }).setOrigin(0.5, 0.5);
 
         // Add a start button
