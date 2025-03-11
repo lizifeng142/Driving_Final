@@ -5,9 +5,14 @@ class Preload extends Phaser.Scene {
 
     preload() {
 
+        // "Driving, traffic, construction.wav" by hatchetgirl from Freesound.org, Creative Commons 0
+        // https://freesound.org/people/hatchetgirl/sounds/207441/
         this.load.audio("drivingSound", "assets/driving.wav");
 
         this.load.audio("backgroundMusic", "assets/music.wav");
+
+        // "Continous Static.wav" by Jace from Freesound.org, Creative Commons 0 
+        // https://freesound.org/people/Jace/sounds/35291/
         this.load.audio("staticSound", "assets/static.wav");
 
         // Start button ("startMiniGame.png")
