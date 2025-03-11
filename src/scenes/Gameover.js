@@ -7,8 +7,15 @@ class Gameover extends Phaser.Scene {
         // Stop all sounds when game over is triggered
         this.sound.stopAll();
 
+        let crashSound = this.sound.add("crash", { loop: false, volume: 0.3 })
+        crashSound.play()
+
+        let carHorns = this.sound.add("carHorn", { loop: true, volume: 0.3 })
+        carHorns.play()
+
+
         // Adding the animated sprites as the backgrounds - sky 
-        this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5);
+        this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5)
 
         // Adding animation for background 
         this.anims.create({

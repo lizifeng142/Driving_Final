@@ -62,20 +62,23 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
+        // Adding the UI timer 
+        this.timer = this.add.sprite(640, 380,"timerUI")
+
         // Create patience and rage bars
-        this.patienceBar = new MeterBar(this, 50, 80, 200, 20, 0x00ff00, 100);
+        this.patienceBar = new MeterBar(this, 990, 590, 200, 20, 0x00ff00, 100);
 
         // Patience meter bar text 
-        this.tempText1 = this.add.text(170, 50, `PATIENCE METER: `, {
+        this.tempText1 = this.add.text(1110, 555, ` PATIENCE METER: `, {
             fontSize: "25px",
             backgroundColor: '#FFFFFF',
-            fill: "#1dbf20"
+            fill: "#000000"
         }).setOrigin(0.5, 0.5);
 
-        this.rageBar = new MeterBar(this, 50, 140, 200, 20, 0xff0000, 0);
+        this.rageBar = new MeterBar(this, 990, 660, 200, 20, 0xff0000, 0);
 
         // Patience meter bar text 
-        this.tempText1 = this.add.text(140, 110, `RAGE METER: `, {
+        this.tempText1 = this.add.text(1080, 625, ` RAGE METER: `, {
             fontSize: "25px",
             backgroundColor: '#FFFFFF',
             fill: "#ed1f0c"
@@ -120,13 +123,12 @@ class Play extends Phaser.Scene {
         // Retrieve the saved high score (default to 0 if none exists)
         this.highScore = localStorage.getItem("highScore") || 0;
 
+        
         // Display the timer
-        this.clockText = this.add.text(1070, 590, `00:00`, {
+        this.clockText = this.add.text(1200, 75, `00:00`, {
             fontSize: "30px", 
             fontStyle: "bold",
-            fill: "#00FF00",
-            stroke: "#000000",
-            strokeThickness: 4,
+            fill: "#000000"
         }).setOrigin(0.5, 0.5);
 
         // Start a timer that updates every second

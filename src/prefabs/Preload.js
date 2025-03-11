@@ -7,13 +7,23 @@ class Preload extends Phaser.Scene {
 
         // "Driving, traffic, construction.wav" by hatchetgirl from Freesound.org, Creative Commons 0
         // https://freesound.org/people/hatchetgirl/sounds/207441/
-        this.load.audio("drivingSound", "assets/driving.wav");
+        this.load.audio("drivingSound", "assets/driving.wav")
 
-        this.load.audio("backgroundMusic", "assets/music.wav");
+        // "Guitar Background Sample" by uEffects, from Freesound.org, Creative Commons 0
+        //https://freesound.org/people/uEffects/sounds/327575/
+        this.load.audio("backgroundMusic", "assets/music.wav")
 
         // "Continous Static.wav" by Jace from Freesound.org, Creative Commons 0 
         // https://freesound.org/people/Jace/sounds/35291/
-        this.load.audio("staticSound", "assets/static.wav");
+        this.load.audio("staticSound", "assets/static.wav")
+
+        // "230707 Car alarm horn honks, roof, EM272s Toronto 12pm" by TRP from Freesound.org, Creative Commons 0 
+        // https://freesound.org/people/TRP/sounds/717865/
+        this.load.audio("carHorn", "assets/carHorn.wav")
+
+        //"Car Crash (with Glass)" by magnuswanker from Freesound.org, Creative Commons 0
+        // https://freesound.org/people/magnuswaker/sounds/592388/
+        this.load.audio("crash", "assets/crash.wav")
 
         // Start button ("startMiniGame.png")
         this.load.image("startMiniGame","assets/startMiniGameOne.png")
@@ -26,6 +36,9 @@ class Preload extends Phaser.Scene {
             frameWidth: 1280,
             frameHeight: 720
         })
+
+        // UI Box for timer 
+        this.load.image("timerUI","assets/timer.png")
 
         // Load road sprite sheet ("roadAnim.png")
         this.load.spritesheet("road","assets/roadAnim.png", {
