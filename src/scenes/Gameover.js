@@ -23,7 +23,13 @@ class Gameover extends Phaser.Scene {
         this.add.image(640, 380, "gameOverScene");
 
         // Display "GAME OVER" text
-        this.add.text(640, 250, "GAME OVER", {
+        this.add.text(640, 250, "GAME", {
+            fontSize: "64px",
+            fontStyle: "bold",
+            fill: "#ff0000"
+        }).setOrigin(0.5);
+
+        this.add.text(840, 300, "OVER", {
             fontSize: "64px",
             fontStyle: "bold",
             fill: "#ff0000"

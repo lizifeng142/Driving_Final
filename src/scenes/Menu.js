@@ -5,8 +5,6 @@ class Menu extends Phaser.Scene {
 
     create() {
 
-
-
         // Adding the animated sprites as the backgrounds - sky 
         this.clouds = this.add.sprite(640, 380, "sky").setOrigin(0.5, 0.5);
 
@@ -92,12 +90,21 @@ class Menu extends Phaser.Scene {
         }).setOrigin(0.5, 0.5);
 
         // Add a start button
-        let startButton = this.add.text(820, 590, 'Start Game', twoLook)
+        let StartButton = this.add.text(820, 590, 'Start Game', twoLook)
             .setOrigin(0.5)
             .setInteractive();
 
-        startButton.on('pointerdown', () => {
+        StartButton.on('pointerdown', () => {
             this.scene.start('playScene');
+        });
+
+         // Add a start button
+         let CreditsButton = this.add.text(1120, 588, 'Credits Text', twoLook)
+         .setOrigin(0.5)
+         .setInteractive();
+
+        CreditsButton.on('pointerdown', () => {
+            this.scene.start('creditsScene');
         });
 
     }
