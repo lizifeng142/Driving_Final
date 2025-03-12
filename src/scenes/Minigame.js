@@ -56,15 +56,21 @@ class MiniGame extends Phaser.Scene {
             .on("pointerdown", () => this.changeTemperature("right", 2));
 
         // Temperature text (Knob 1)
-        this.tempText1 = this.add.text(510, 275, `${this.temperatures1[this.knobFrame1]}°`, {
-            fontSize: "15px",
-            fill: "#fff"
+        this.tempText1 = this.add.text(485, 285, `${this.temperatures1[this.knobFrame1]}°`, {
+            fontSize: "20px",  // Increased font size for better visibility
+            fill: "#00FF00",  // Neon Green
+            fontStyle: "bold",
+            stroke: "#000000",  // Black outline for contrast
+            strokeThickness: 3,
         }).setOrigin(0.5, 0.5);
 
         // Temperature text (Knob 2)
-        this.tempText2 = this.add.text(800, 280, `${this.temperatures2[this.knobFrame2]}°`, {
-            fontSize: "15px",
-            fill: "#fff"
+        this.tempText2 = this.add.text(800, 290, `${this.temperatures2[this.knobFrame2]}°`, {
+            fontSize: "20px",  // Increased font size for better visibility
+            fill: "#00FF00",  // Neon Green
+            fontStyle: "bold",
+            stroke: "#000000",  // Black outline for contrast
+            strokeThickness: 3,
         }).setOrigin(0.5, 0.5);
 
         // Start Temperature Matching Event
@@ -81,7 +87,7 @@ class MiniGame extends Phaser.Scene {
         let bgHeight = 40; // Height of the background
 
         //Display the goal temperature - Auto side 
-        this.targetText = this.add.text(380, 340, `Set to: ${this.targetTemp1}°`, {
+        this.targetText = this.add.text(360, 340, `Set to: ${this.targetTemp1}°`, {
             fontSize: "20px",
             fill: "#fff",
             fontStyle: "bold"
@@ -105,7 +111,7 @@ class MiniGame extends Phaser.Scene {
             this.temperatures1[this.knobFrame1] === this.targetTemp1 &&
             this.temperatures2[this.knobFrame2] === this.targetTemp2
         ) {
-            this.targetText = this.add.text(640, 340, `Correct! Patience +20`, {
+            this.targetText = this.add.text(640, 360, `Correct! Patience +20`, {
                 fontSize: "22px",
                 fill: "#fff",
                 fontStyle: "bold"

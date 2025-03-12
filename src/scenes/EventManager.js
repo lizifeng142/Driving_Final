@@ -15,6 +15,11 @@ class EventManager extends Phaser.Scene {
             backgroundColor: "#00000080"
         }).setOrigin(0.5);
 
+        this.currentEvent = null;
+        this.eventActive = false;
+        this.eventCount = 0;
+        this.patienceDepleted = false;
+
         // Generate a new event after 3 seconds
         this.scheduleNextEvent();
     }
@@ -80,7 +85,13 @@ class EventManager extends Phaser.Scene {
         this.eventActive = false;
         this.scheduleNextEvent();
     
-        // Resume background music when the event ends
-        this.scene.get("playScene").resumeBackgroundMusic();
-    }
+        // Stop mini-games to prevent carryover
+        this.scene.stop("MiniGameScene");
+        this.scene.stop("MiniGameScene2");
+    
+        // Resume background music after event
+        if (this.scene.get("playScene")) {
+            this.scene.get("playScene").resumeBackgroundMusic();
+        }
+    }    
 }

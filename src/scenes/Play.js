@@ -5,6 +5,13 @@ class Play extends Phaser.Scene {
 
     create() {
         // **Start the EventManager (added)**
+        if (this.scene.get("EventManagerScene")) {
+            this.scene.stop("EventManagerScene");
+            this.scene.remove("EventManagerScene");
+        }
+    
+        // ✅ Add and launch a fresh instance of EventManagerScene
+        this.scene.add("EventManagerScene", EventManager, true);
         this.scene.launch("EventManagerScene");
 
         // Adding the animated sprites as the backgrounds - sky 
@@ -188,7 +195,7 @@ class Play extends Phaser.Scene {
 
     startPatienceDecrease() {
         if (!this.patienceTween || !this.patienceTween.isPlaying()) {
-            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 20000);
+            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 15000);
         }
     }
 
@@ -256,13 +263,16 @@ class Play extends Phaser.Scene {
             return;
         }
 
-        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 20000);
+        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 15000);
     }
 
     triggerGameOver() {
         this.clockTimer.remove(false); // Stop the timer
-        
-        
+    
+        // Stop the Event Manager when transitioning to Game Over
+        this.scene.stop("EventManagerScene");
+    
+        // Transition to the Game Over screen
         this.scene.start("GameOverScene", { lastScore: this.elapsedTime });
     
         // Check for new high score
@@ -272,8 +282,6 @@ class Play extends Phaser.Scene {
         }
     }
     
-
-
 
     stopRageIncrease() {
         if (this.rageTween) {

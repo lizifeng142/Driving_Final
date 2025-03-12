@@ -93,42 +93,12 @@ class Credits extends Phaser.Scene {
             fill: "#000000"
         }).setOrigin(0.5);
 
-        // Retrieve last score (fix error)
-        let lastScore = data.lastScore || 0
-    
-        // Convert to MM:SS format
-        let minutes = Math.floor(lastScore / 60)
-        let seconds = lastScore % 60
-        let formattedLastScore = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-    
-        // Display "Your Time: MM:SS" on the Game Over screen
-        this.add.text(640, 320, `Your Time: ${formattedLastScore}`, {
-            fontSize: "35px",
-            fontStyle: "bold",
-            fill: "#FF4500",  // Orange-Red color for visibility
-            stroke: "#000000", // Black outline for contrast
-            strokeThickness: 4
-        }).setOrigin(0.5, 0.5)
-    
-        // Restart Button
-        let restartButton = this.add.text(640, 400, "Restart Game", {
-            fontSize: "28px",
-            fontStyle: "bold",
-            fill: "#FFFFFF",
-            backgroundColor: "#228B22", // Green button
-            padding: { x: 15, y: 5 }
-        }).setOrigin(0.5).setInteractive()
-    
-        restartButton.on("pointerdown", () => {
-            this.scene.start("playScene"); // Restart the game
-        })
     
         // Main Menu Button
-        let menuButton = this.add.text(640, 500, "Main Menu", {
+        let menuButton = this.add.text(830, 590, "Main Menu", {
             fontSize: "28px",
             fontStyle: "bold",
             fill: "#FFFFFF",
-            backgroundColor: "#0000FF",  // Blue button
             padding: { x: 15, y: 5 }
         }).setOrigin(0.5).setInteractive();
     

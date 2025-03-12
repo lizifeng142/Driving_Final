@@ -84,13 +84,18 @@ class Menu extends Phaser.Scene {
         this.add.text(150, 35, `Best Time: ${formattedHighScore}`, {
             fontSize: "30px",       
             fontStyle: "bold",     
-            fill: "#00FFFF",        
+            fill: "#FF4500",        
             stroke: "#000000",   
             strokeThickness: 4,     
         }).setOrigin(0.5, 0.5);
 
         // Add a start button
-        let StartButton = this.add.text(820, 590, 'Start Game', twoLook)
+        let StartButton = this.add.text(820, 590, 'Start Game', {
+            fontSize: "28px",
+            fontStyle: "bold",
+            fill: "#FFFFFF",
+            padding: { x: 15, y: 5 }
+        })
             .setOrigin(0.5)
             .setInteractive();
 
@@ -99,7 +104,12 @@ class Menu extends Phaser.Scene {
         });
 
          // Add a start button
-         let CreditsButton = this.add.text(1120, 588, 'Credits Text', twoLook)
+         let CreditsButton = this.add.text(1120, 588, 'Credits Text', {
+            fontSize: "28px",
+            fontStyle: "bold",
+            fill: "#FFFFFF",
+            padding: { x: 15, y: 5 }
+        })
          .setOrigin(0.5)
          .setInteractive();
 

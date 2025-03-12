@@ -39,11 +39,9 @@ class MiniGame2 extends Phaser.Scene {
     createChannelHitboxes() {
         // Define exact positions for each button on the radio interface
         const hitboxes = [
-            { channel: "AM", x: 520, y: 405, width: 100, height: 50 },   // AM Button
-            { channel: "FM", x: 770, y: 410, width: 100, height: 50 },   // FM Button
-            { channel: "AUX", x: 770, y: 470, width: 100, height: 50 },  // AUX Button
-            { channel: "UP", x: 0, y: 300, width: 100, height: 50 },    // Up Arrow Button
-            { channel: "DOWN", x: 0, y: 440, width: 100, height: 50 }   // Down Arrow Button
+            { channel: "AM", x: 535, y: 430, width: 95, height: 90},   // AM Button
+            { channel: "FM", x: 750, y: 425, width: 95, height: 90 },   // FM Button
+            { channel: "AUX", x: 750, y: 518, width: 95, height: 75 },  // AUX Button
         ];
     
         hitboxes.forEach(({ channel, x, y, width, height }) => {
@@ -82,7 +80,7 @@ class MiniGame2 extends Phaser.Scene {
 
     selectChannel(channel) {
         if (channel === this.targetChannel) {
-            this.targetText = this.add.text(640, 350, "Correct channel! Rage -20", {
+            this.targetText = this.add.text(640, 360, "Correct channel! Rage -20", {
                 fontSize: "22px",
                 fill: "#fff",
                 fontStyle: "bold"

@@ -69,8 +69,30 @@ class Gameover extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
 
         restartButton.on("pointerdown", () => {
-            this.scene.start("playScene"); // Restart the game
+            console.log("Restarting game...");
+        
+            // Stop and fully remove EventManagerScene before restarting
+            if (this.scene.get("EventManagerScene")) {
+                this.scene.stop("EventManagerScene");
+                this.scene.remove("EventManagerScene");
+            }
+        
+            // Stop all active scenes before restarting
+            this.scene.stop("playScene");
+            this.scene.stop("MiniGameScene");
+            this.scene.stop("MiniGameScene2");
+        
+            // Stop all sounds and reset game state
+            this.sound.stopAll();
+            this.time.removeAllEvents();
+            this.tweens.killAll();
+        
+            // Restart the game fresh
+            this.scene.start("playScene");
         });
+        
+        
+        
 
         // Main Menu Button
         let menuButton = this.add.text(640, 500, "Main Menu", {
@@ -82,9 +104,42 @@ class Gameover extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
 
         menuButton.on("pointerdown", () => {
-            console.log("Main Menu button clicked!");  // Debugging
-            this.scene.start("menuScene"); // Go back to the Main Menu
+            console.log("Main Menu button clicked!");
+        
+            // Stop and fully remove EventManagerScene
+            if (this.scene.get("EventManagerScene")) {
+                this.scene.stop("EventManagerScene");
+                this.scene.remove("EventManagerScene");
+            }
+        
+            // Stop all other active scenes
+            this.scene.stop("playScene");
+            this.scene.stop("MiniGameScene");
+            this.scene.stop("MiniGameScene2");
+    
+            // Stop all sounds and timers
+            this.sound.stopAll();
+            this.time.removeAllEvents();
+            this.tweens.killAll();
+        
+            // Transition to the main menu
+            this.scene.start("menuScene");
         });
+        
 
+    }
+    
+    resetGameState() {
+        // Stop all sounds
+        this.sound.stopAll();
+    
+        // Clear active timers (if any exist)
+        this.time.removeAllEvents();
+    
+        // Destroy all tweens (useful for UI animations)
+        this.tweens.killAll();
+    
+        // Reset player and game objects (if needed)
+        this.scene.get("playScene")?.scene.restart(); // Restart play scene fresh
     }
 }
