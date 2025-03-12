@@ -36,12 +36,12 @@ class MiniGame extends Phaser.Scene {
         this.knob2 = this.add.sprite(640, 360, "ACKnob", this.knobFrame2).setOrigin(0.5, 0.5);
 
         // Left zone (First knob - cooling)
-        this.leftZone1 = this.add.rectangle(this.knob1.x - 340, this.knob1.y - 129, 60, 125, 0xff0000, 0.5) // hitbox checker
+        this.leftZone1 = this.add.rectangle(this.knob1.x - 340, this.knob1.y - 129, 60, 125, 0xff0000, 0) // hitbox checker
             .setInteractive()
             .on("pointerdown", () => this.changeTemperature("left", 1));
 
         // Right zone (First knob - heating)
-        this.rightZone1 = this.add.rectangle(this.knob1.x - 277, this.knob1.y - 129, 60, 125, 0xff0000, 0.5)
+        this.rightZone1 = this.add.rectangle(this.knob1.x - 277, this.knob1.y - 129, 60, 125, 0xff0000, 0)
             .setInteractive()
             .on("pointerdown", () => this.changeTemperature("right", 1));
 
