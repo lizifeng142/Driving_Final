@@ -109,7 +109,7 @@ class Play extends Phaser.Scene {
         this.miniGameHitbox = this.add.rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight, 0xff0000, 0.0)
             .setOrigin(0.5)
             .setInteractive()
-            .on("pointerdown", () => this.startMiniGame());
+            .on("pointerdown", () => this.startMiniGame())
 
         // playing animation, test? 
         this.clouds.play("cloudAnim");
