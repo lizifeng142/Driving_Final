@@ -40,12 +40,12 @@ class MiniGame2 extends Phaser.Scene {
     
         hitboxes.forEach(({ channel, x, y, width, height }) => {
             // Create an interactive hitbox
-            let hitbox = this.add.rectangle(x, y, width, height, 0xff0000, 0)
+            let hitbox = this.add.rectangle(x, y, width, height, 0xff0000, 0.5)
                 .setOrigin(0.5)
                 .setInteractive()
                 .on("pointerdown", () => this.selectChannel(channel));
         });
-    }
+    }   
     
 
     startRadioTuningEvent() {

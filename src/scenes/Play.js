@@ -186,9 +186,10 @@ class Play extends Phaser.Scene {
         }
     }
 
+
     startPatienceDecrease() {
         if (!this.patienceTween || !this.patienceTween.isPlaying()) {
-            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 20000);
+            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 20000); //20sec for patience
         }
     }
 
@@ -256,7 +257,7 @@ class Play extends Phaser.Scene {
             return;
         }
 
-        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 20000);
+        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 20000); //This is rage increase with the duration of 20sec
     }
 
     triggerGameOver() {
@@ -332,7 +333,7 @@ class Play extends Phaser.Scene {
         this.patienceBar.increase(newPatienceValue - this.patienceBar.value, 1000);
 
         let patiencePercentageLeft = newPatienceValue / this.patienceBar.maxValue;
-        let remainingDuration = patiencePercentageLeft * 20000;
+        let remainingDuration = patiencePercentageLeft * 20000; 
 
         this.time.delayedCall(2000, () => {
             this.patienceTween = this.smoothDecrease(this.patienceBar, 0, remainingDuration);
