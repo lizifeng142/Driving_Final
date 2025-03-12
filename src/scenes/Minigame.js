@@ -21,23 +21,27 @@ class MiniGame extends Phaser.Scene {
 
     create() {
         // Background image
-        this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
+        //this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
+        this.overlay = this.add.image(640, 360, "newMinigameBG").setOrigin(0.5, 0.5);
 
-        this.overlay = this.add.image(640, 360, "minigame2").setOrigin(0.5, 0.5);
+        //this.overlay = this.add.image(640, 360, "minigame2").setOrigin(0.5, 0.5);
+        this.overlay = this.add.image(640, 360, "newMinigameRadio").setOrigin(0.5, 0.5);
 
         // Create first knob (Knob_Sprite.png)
-        this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
+        //this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
+        this.knob1 = this.add.sprite(640, 360, "AUTOKnob", this.knobFrame1).setOrigin(0.5, 0.5);
 
         // Create second knob (Knob_Sprite2.png)
-        this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
+        //this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
+        this.knob2 = this.add.sprite(640, 360, "ACKnob", this.knobFrame2).setOrigin(0.5, 0.5);
 
         // Left zone (First knob - cooling)
-        this.leftZone1 = this.add.rectangle(this.knob1.x - 300, this.knob1.y - 115, 60, 125, 0x000000, 0)
+        this.leftZone1 = this.add.rectangle(this.knob1.x - 340, this.knob1.y - 129, 60, 125, 0xff0000, 0.5) // hitbox checker
             .setInteractive()
             .on("pointerdown", () => this.changeTemperature("left", 1));
 
         // Right zone (First knob - heating)
-        this.rightZone1 = this.add.rectangle(this.knob1.x - 235, this.knob1.y - 115, 60, 125, 0x000000, 0)
+        this.rightZone1 = this.add.rectangle(this.knob1.x - 277, this.knob1.y - 129, 60, 125, 0xff0000, 0.5)
             .setInteractive()
             .on("pointerdown", () => this.changeTemperature("right", 1));
 

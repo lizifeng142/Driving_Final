@@ -102,8 +102,21 @@ class Preload extends Phaser.Scene {
             endFrame: 8       
         });
 
-        // Load second knob sprite sheet ("Knob_Sprite2.png")
-        this.load.spritesheet("knob2", "assets/Knob_Sprite2.png", {
+        // New UI - minigame background
+        this.load.image("newMinigameBG","assets/newMinigameBackground.png")
+
+        // New UI - minigame radio
+        this.load.image("newMinigameRadio","assets/newMinigame2.png")
+
+        // New UI - Second Knob AC
+        this.load.spritesheet("ACKnob", "assets/newKnobSprite2.png", {
+            frameWidth: 800,  
+            frameHeight: 500,
+            endFrame: 8       
+        });
+
+        // New UI - First Knob AUTO
+        this.load.spritesheet("AUTOKnob", "assets/newKnobSprite1.png", {
             frameWidth: 800,  
             frameHeight: 500,
             endFrame: 8       

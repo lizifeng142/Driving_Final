@@ -12,13 +12,21 @@ class MiniGame2 extends Phaser.Scene {
 
     create() {
         // Add a background image for the mini-game
-        this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
-        this.overlay = this.add.image(640, 360, "minigame2").setOrigin(0.5, 0.5);
+        // first rendition - this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
+
+        this.overlay = this.add.image(640, 360, "newMinigameBG").setOrigin(0.5, 0.5);
+        
+        //this.overlay = this.add.image(640, 360, "minigame2").setOrigin(0.5, 0.5);
+        this.overlay = this.add.image(640, 360, "newMinigameRadio").setOrigin(0.5, 0.5);
+
         // Create first knob (Knob_Sprite.png)
-        this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
+        //this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
+        this.knob1 = this.add.sprite(640, 360, "AUTOKnob", this.knobFrame1).setOrigin(0.5, 0.5);
 
         // Create second knob (Knob_Sprite2.png)
-        this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
+        //this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
+        this.knob2 = this.add.sprite(640, 360, "ACKnob", this.knobFrame2).setOrigin(0.5, 0.5);
+        
         this.overlay.setScale(0.9); // Scale it properly to fit the screen
 
         // Create interactive hitboxes for channel selection
