@@ -51,12 +51,12 @@ class Credits extends Phaser.Scene {
         })
 
         // Adding the animated sprites as the backgrounds - car
-        this.car = this.add.sprite(640, 380, "titleCar").setOrigin(0.5, 0.5);
+        this.car = this.add.sprite(640, 380, "creditCar").setOrigin(0.5, 0.5);
 
         // Adding animation for background - car with scenes 
         this.anims.create({
             key: "credits_carAnim",
-            frames: this.anims.generateFrameNumbers("titleCar", { start: 0, end: 1 }),
+            frames: this.anims.generateFrameNumbers("creditCar", { start: 0, end: 1 }),
             frameRate: 3,
             repeat: -1
         })
@@ -69,33 +69,79 @@ class Credits extends Phaser.Scene {
         this.car.play("credits_carAnim")
     
         // Display "Credits" text
-        this.add.text(740, 150, "Credits", {
+        this.add.text(740, 130, "Credits", {
             fontSize: "44px",
             fontStyle: "bold",
             fill: "#000000"
         }).setOrigin(0.5);
 
-        this.add.text(740, 180, "Programming:", {
+        this.add.text(740, 165, "Programming:", {
             fontSize: "26px",
             fontStyle: "bold",
             fill: "#000000"
         }).setOrigin(0.5);
 
-        this.add.text(740, 205, "Calvin Li & Ruby Hirsch", {
+        this.add.text(740, 195, "Calvin Li & Ruby Hirsch", {
             fontSize: "18px",
             fontStyle: "bold",
             fill: "#000000"
         }).setOrigin(0.5);
 
-        this.add.text(740, 380, "Art:", {
+        this.add.text(745, 230, "Art & UI: ", {
             fontSize: "26px",
             fontStyle: "bold",
             fill: "#000000"
         }).setOrigin(0.5);
 
+        this.add.text(735, 260, "Ruby Hirsch", {
+            fontSize: "18px",
+            fontStyle: "bold",
+            fill: "#000000"
+        }).setOrigin(0.5);
+
+        this.add.text(745, 295, "Sound Design: ", {
+            fontSize: "26px",
+            fontStyle: "bold",
+            fill: "#000000"
+        }).setOrigin(0.5);
+
+        this.add.text(735, 325, "Calvin Li & Ruby Hirsch", {
+            fontSize: "18px",
+            fontStyle: "bold",
+            fill: "#000000"
+        }).setOrigin(0.5);
+
+        this.add.text(815, 560, "Sounds: ", {
+            fontSize: "28px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(815, 590, "'Driving, Traffic, Construction.wav'", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(815, 605, "by hatchetgirl ", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(815, 610, "https://freesound.org/peoplehatchetgirl/sounds/207441/", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+
+        // "Driving, traffic, construction.wav" by hatchetgirl from Freesound.org, Creative Commons 0
+        // https://freesound.org/people/hatchetgirl/sounds/207441/
+
     
         // Main Menu Button
-        let menuButton = this.add.text(830, 590, "Main Menu", {
+        let menuButton = this.add.text(1130, 585, "Main Menu", {
             fontSize: "28px",
             fontStyle: "bold",
             fill: "#FFFFFF",

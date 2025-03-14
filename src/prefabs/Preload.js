@@ -89,11 +89,19 @@ class Preload extends Phaser.Scene {
             frameHeight: 720
         })
 
+        // Load car sprite sheet for credits ("creditCarAnim.png")
+        this.load.spritesheet("creditCar","assets/creditsCarAnim.png", {
+            frameWidth: 1280,
+            frameHeight: 720
+        })
+
         // Load car sprite sheet ("carAnim.png")
         this.load.spritesheet("minigame2","assets/Minigame_2.PNG", {
             frameWidth: 800,
             frameHeight: 500
         })
+
+
         
         // Load first knob sprite sheet ("Knob_Sprite1.png")
         this.load.spritesheet("knob", "assets/Knob_Sprite1.png", {
