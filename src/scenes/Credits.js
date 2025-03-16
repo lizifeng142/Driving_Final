@@ -17,7 +17,7 @@ class Credits extends Phaser.Scene {
         })
 
         // Adding the animated sprites as the backgrounds - road
-        this.roads = this.add.sprite(640, 380, "road").setOrigin(0.5, 0.5);
+        this.roads = this.add.sprite(640, 380, "road").setOrigin(0.5, 0.5)
         
         // Adding animation for background 
         this.anims.create({
@@ -37,7 +37,6 @@ class Credits extends Phaser.Scene {
             frameRate: 18,
             repeat: -1
         })
-
 
         // Adding the animated sprites as the backgrounds - bus w game title
         this.bus = this.add.sprite(640, 380, "busBlank").setOrigin(0.5, 0.5);

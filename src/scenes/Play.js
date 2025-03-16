@@ -67,10 +67,13 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("car", { start: 0, end: 1 }),
             frameRate: 3,
             repeat: -1
-        });
+        })
 
         // Adding the UI timer 
         this.timer = this.add.sprite(640, 380,"timerUI")
+
+        // Adding UI box for the patience and rage bar
+        this.prbox = this.add.sprite(640, 380, "barUI").setOrigin(0.5, 0.5) 
 
         // Create patience and rage bars
         this.patienceBar = new MeterBar(this, 990, 590, 200, 20, 0x00ff00, 100);
@@ -89,7 +92,7 @@ class Play extends Phaser.Scene {
             fontSize: "25px",
             backgroundColor: '#FFFFFF',
             fill: "#ed1f0c"
-        }).setOrigin(0.5, 0.5);
+        }).setOrigin(0.5, 0.5)
 
         this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.3 });
         this.backgroundMusic = this.sound.add("backgroundMusic", { loop: true, volume: 0.3 });

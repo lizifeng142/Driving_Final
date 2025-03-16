@@ -130,9 +130,13 @@ class Preload extends Phaser.Scene {
             endFrame: 8       
         });
 
+        // New UI - Patience and rage bar box 
+        this.load.image("barUI","assets/barHolder.png")
+
 
         // Start button ("startMiniGame.png")
         this.load.image("startMiniGame","assets/startMiniGameOne.png")
+
 
     }
 
