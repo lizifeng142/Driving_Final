@@ -34,6 +34,8 @@ class MiniGame2 extends Phaser.Scene {
 
         // Start the radio tuning event
         this.startRadioTuningEvent();
+
+        
     }
 
     createChannelHitboxes() {

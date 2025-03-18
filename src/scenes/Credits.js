@@ -110,33 +110,43 @@ class Credits extends Phaser.Scene {
             fill: "#000000"
         }).setOrigin(0.5);
 
-        this.add.text(815, 560, "Sounds: ", {
+        this.add.text(815, 550, "Sounds: ", {
             fontSize: "28px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(815, 590, "'Driving, Traffic, Construction.wav'", {
+        this.add.text(815, 570, "'Driving, Traffic, Construction.wav'", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(815, 605, "by hatchetgirl ", {
+        this.add.text(745, 585, "by hatchetgirl, ", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(815, 610, "https://freesound.org/peoplehatchetgirl/sounds/207441/", {
+        this.add.text(875, 585, "https://freesound.org", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(720, 600, "/peoplehat", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+        
+        this.add.text(840, 600, "chetgirl/sounds/207441/", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
 
-        // "Driving, traffic, construction.wav" by hatchetgirl from Freesound.org, Creative Commons 0
-        // https://freesound.org/people/hatchetgirl/sounds/207441/
 
     
         // Main Menu Button
