@@ -21,48 +21,44 @@ class MiniGame extends Phaser.Scene {
 
     create() {
         // Background image
-        //this.overlay = this.add.image(640, 360, "minigameBg").setOrigin(0.5, 0.5);
         this.overlay = this.add.image(640, 360, "newMinigameBG").setOrigin(0.5, 0.5);
 
-        //this.overlay = this.add.image(640, 360, "minigame2").setOrigin(0.5, 0.5);
         this.overlay = this.add.image(640, 360, "newMinigameRadio").setOrigin(0.5, 0.5);
 
         // Create first knob (Knob_Sprite.png)
-        //this.knob1 = this.add.sprite(640, 360, "knob", this.knobFrame1).setOrigin(0.5, 0.5);
         this.knob1 = this.add.sprite(640, 360, "AUTOKnob", this.knobFrame1).setOrigin(0.5, 0.5);
 
         // Create second knob (Knob_Sprite2.png)
-        //this.knob2 = this.add.sprite(640, 360, "knob2", this.knobFrame2).setOrigin(0.5, 0.5);
-        this.knob2 = this.add.sprite(640, 360, "ACKnob", this.knobFrame2).setOrigin(0.5, 0.5);
+        this.knob2 = this.add.sprite(640, 360, "ACKnob", this.knobFrame2).setOrigin(0.5, 0.5)
 
         // Left zone (First knob - cooling)
         this.leftZone1 = this.add.rectangle(this.knob1.x - 340, this.knob1.y - 129, 60, 125, 0xff0000, 0) // hitbox checker
             .setInteractive()
-            .on("pointerdown", () => this.changeTemperature("left", 1));
+            .on("pointerdown", () => this.changeTemperature("left", 1))
 
         // Right zone (First knob - heating)
         this.rightZone1 = this.add.rectangle(this.knob1.x - 277, this.knob1.y - 129, 60, 125, 0xff0000, 0)
             .setInteractive()
-            .on("pointerdown", () => this.changeTemperature("right", 1));
+            .on("pointerdown", () => this.changeTemperature("right", 1))
 
         // Left zone (Second knob - cooling)
         this.leftZone2 = this.add.rectangle(this.knob2.x + 250, this.knob2.y - 105, 60, 125, 0x000000, 0)
             .setInteractive()
-            .on("pointerdown", () => this.changeTemperature("left", 2));
+            .on("pointerdown", () => this.changeTemperature("left", 2))
 
         // Right zone (Second knob - heating)
         this.rightZone2 = this.add.rectangle(this.knob2.x + 315, this.knob2.y - 105, 60, 125, 0x000000, 0)
             .setInteractive()
-            .on("pointerdown", () => this.changeTemperature("right", 2));
+            .on("pointerdown", () => this.changeTemperature("right", 2))
 
         // Temperature text (Knob 1)
         this.tempText1 = this.add.text(485, 285, `${this.temperatures1[this.knobFrame1]}°`, {
-            fontSize: "40px",  // Increased font size for better visibility
-            fill: "#00FF00",  // Neon Green
+            fontSize: "40px",
+            fill: "#00FF00", 
             fontStyle: "bold",
             stroke: "#000000",
             strokeThickness: 3,
-        }).setOrigin(0.5, 0.5);
+        }).setOrigin(0.5, 0.5)
 
         // Temperature text (Knob 2)
         this.tempText2 = this.add.text(800, 290, `${this.temperatures2[this.knobFrame2]}°`, {
@@ -82,8 +78,8 @@ class MiniGame extends Phaser.Scene {
         this.targetTemp2 = Phaser.Utils.Array.GetRandom(this.temperatures2);
 
         // Create a black background for the text
-        let bgWidth = 300; // Width of the background
-        let bgHeight = 40; // Height of the background
+        let bgWidth = 300
+        let bgHeight = 40
 
         //Display the goal temperature - Auto side 
         this.targetText = this.add.text(340, 320, `Set to: ${this.targetTemp1}°`, {

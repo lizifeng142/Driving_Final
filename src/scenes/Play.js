@@ -309,7 +309,7 @@ class Play extends Phaser.Scene {
         // Check for new high score
         let previousHighScore = parseInt(localStorage.getItem("highScore")) || 0;
         if (this.elapsedTime > previousHighScore) {
-            localStorage.setItem("highScore", this.elapsedTime); // Save new high score
+            localStorage.setItem("highScore", this.elapsedTime); 
         }
     }
     

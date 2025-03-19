@@ -18,8 +18,8 @@ class Tutorial extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
     
         menuButton.on("pointerdown", () => {
-            console.log("Main Menu button clicked!");  // Debugging
-            this.scene.start("menuScene"); // Go back to the Main Menu
+            console.log("Main Menu button clicked!")
+            this.scene.start("menuScene")
         });
 
         // Add a start button
@@ -33,8 +33,8 @@ class Tutorial extends Phaser.Scene {
             .setInteractive();
 
         StartButton.on('pointerdown', () => {
-            this.scene.start('playScene');
-        });
+            this.scene.start('playScene')
+        })
 
 
     

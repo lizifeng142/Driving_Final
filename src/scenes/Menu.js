@@ -66,7 +66,6 @@ class Menu extends Phaser.Scene {
         this.bus.play("menu_busAnim");
         this.car.play("menu_carAnim");
 
-        // placeholder text - will input font 
 
         let twoLook = {
             fontFamily: 'Courier',
@@ -109,7 +108,7 @@ class Menu extends Phaser.Scene {
             this.scene.start('playScene');
         });
 
-         // Add a start button
+         // Add a credits button
          let CreditsButton = this.add.text(1120, 588, 'Credits Text', {
             fontSize: "28px",
             fontStyle: "bold",
@@ -131,8 +130,8 @@ class Menu extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
     
         tutorialButton.on("pointerdown", () => {
-            console.log("Main Menu button clicked!");  // Debugging
-            this.scene.start("tutorialScene"); // Go back to the Main Menu
+            console.log("Main Menu button clicked!");
+            this.scene.start("tutorialScene"); 
         });
 
     }
