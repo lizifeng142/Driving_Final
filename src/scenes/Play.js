@@ -75,22 +75,37 @@ class Play extends Phaser.Scene {
         // Adding UI box for the patience and rage bar
         this.prbox = this.add.sprite(640, 380, "barUI").setOrigin(0.5, 0.5) 
 
+
+         // Patience meter bar text 
+         this.tempTextPatience1 = this.add.text(130, 85, ` PATIENCE `, {
+            fontSize: "25px",
+            //fontStyle: "bold",
+            fill: "#000000"
+        }).setOrigin(0.5, 0.5)
+
+        this.tempTextPatience2 = this.add.text(130, 109, ` METER: `, {
+            fontSize: "25px",
+           // fontStyle: "bold",
+            fill: "#000000"
+        }).setOrigin(0.5, 0.5)
+
         // Create patience and rage bars
-        this.patienceBar = new MeterBar(this, 1010, 605, 230, 25, 0x00ff00, 100);
+        this.patienceBar = new MeterBar(this, 50, 139, 160, 25, 0x00ff00, 90)
 
+        
         // Patience meter bar text 
-        this.tempText1 = this.add.text(1130, 570, ` PATIENCE METER: `, {
-            fontSize: "30px",
-            fill: "#FFFFFF"
+        this.tempTextRage1 = this.add.text(130, 180, ` RAGE `, {
+            fontSize: "25px",
+            fill: "#000000"
         }).setOrigin(0.5, 0.5)
 
-        this.rageBar = new MeterBar(this, 1010, 680, 230, 25, 0xff0000, 0);
-
-        // Patience meter bar text 
-        this.tempText1 = this.add.text(1130, 645, ` RAGE METER: `, {
-            fontSize: "30px",
-            fill: "#FFFFFF"
+        this.tempTextRage1 = this.add.text(133, 200, ` METER: `, {
+            fontSize: "25px",
+            fill: "#000000"
         }).setOrigin(0.5, 0.5)
+
+        this.rageBar = new MeterBar(this, 50, 230, 160, 25, 0xff0000, 0);
+
 
         this.drivingSound = this.sound.add("drivingSound", { loop: true, volume: 0.3 });
         this.backgroundMusic = this.sound.add("backgroundMusic", { loop: true, volume: 0.3 });
