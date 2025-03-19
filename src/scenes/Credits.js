@@ -122,32 +122,65 @@ class Credits extends Phaser.Scene {
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(745, 585, "by hatchetgirl, ", {
+        this.add.text(745, 585, "by hatchetgirl", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(875, 585, "https://freesound.org", {
+        this.add.text(778, 600, "'Guitar Background Sample'", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
-        this.add.text(720, 600, "/peoplehat", {
-            fontSize: "12px",
-            fontStyle: "bold",
-            fill: "#FFFFFF"
-        }).setOrigin(0.5);
-        
-        this.add.text(840, 600, "chetgirl/sounds/207441/", {
+        this.add.text(735, 612, "by uEffects", {
             fontSize: "12px",
             fontStyle: "bold",
             fill: "#FFFFFF"
         }).setOrigin(0.5);
 
+        this.add.text(768, 625, "'Continuous Static.wav'", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(720, 637, "by Jace", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(790, 650, "'230707 Car alarm horn honks'", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(717, 663, "by TRP", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(770, 675, "'Car Crash (with Glass)'", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
+
+        this.add.text(737, 687, "magnuswanker", {
+            fontSize: "12px",
+            fontStyle: "bold",
+            fill: "#FFFFFF"
+        }).setOrigin(0.5);
 
 
+
+        //"" by magnuswanker from Freesound.org, Creative Commons 0
+        // https://freesound.org/people/magnuswaker/sounds/592388/
+        this.load.audio("crash", "assets/crash.wav")
     
         // Main Menu Button
         let menuButton = this.add.text(1130, 585, "Main Menu", {

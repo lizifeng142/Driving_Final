@@ -93,7 +93,7 @@ class Menu extends Phaser.Scene {
         let StartButton = this.add.text(820, 590, 'Start Game', {
             fontSize: "28px",
             fontStyle: "bold",
-            fill: "#FFFFFF",
+            fill: "#1c1815",
             padding: { x: 15, y: 5 }
         })
             .setOrigin(0.5)
@@ -107,7 +107,7 @@ class Menu extends Phaser.Scene {
          let CreditsButton = this.add.text(1120, 588, 'Credits Text', {
             fontSize: "28px",
             fontStyle: "bold",
-            fill: "#FFFFFF",
+            fill: "#1c1815",
             padding: { x: 15, y: 5 }
         })
          .setOrigin(0.5)

@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
             this.scene.remove("EventManagerScene");
         }
     
-        // ✅ Add and launch a fresh instance of EventManagerScene
+        // Add and launch a fresh instance of EventManagerScene
         this.scene.add("EventManagerScene", EventManager, true);
         this.scene.launch("EventManagerScene");
 
@@ -120,8 +120,23 @@ class Play extends Phaser.Scene {
         // Start smooth decrease of patience over 20 seconds
         this.startPatienceDecrease();
 
+         // Create a white box underneath miniGameButton
+         this.flashBox = this.add.rectangle(819, 620, 300, 200, 0xffffff).setOrigin(0.5).setAlpha(0); // Initially invisible
+
+         // Flashing animation using tweens
+         this.tweens.add({
+             targets: this.flashBox,
+             alpha: { from: 0, to: 1 },
+             duration: 500, // Flash duration (milliseconds)
+             yoyo: true, // Makes it go back and forth
+             repeat: -1 // Infinite repeat
+         });
+
         // Create the image (non-interactive)
         this.miniGameButton = this.add.image(640, 380, "startMiniGame").setOrigin(0.5).setScale(1);
+
+       
+
 
         // Define hitbox size & position (Adjust X, Y, width, height)
         let hitboxX = 820;  // X position (adjust as needed)
@@ -211,7 +226,7 @@ class Play extends Phaser.Scene {
 
     startPatienceDecrease() {
         if (!this.patienceTween || !this.patienceTween.isPlaying()) {
-            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 15000);
+            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 1000); // 15000
         }
     }
 
@@ -279,7 +294,7 @@ class Play extends Phaser.Scene {
             return;
         }
 
-        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 15000);
+        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 1000); // 15000
     }
 
     triggerGameOver() {

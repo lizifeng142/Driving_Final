@@ -9,7 +9,7 @@ class EventManager extends Phaser.Scene {
 
     create() {
         // Event Text (Displays the scenario)
-        this.eventText = this.add.text(640, 100, "Waiting for an event...", {
+        this.eventText = this.add.text(640, 800, "Waiting for an event...", {
             fontSize: "24px",
             fill: "#fff",
             backgroundColor: "#00000080"

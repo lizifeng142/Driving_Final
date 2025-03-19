@@ -30,13 +30,13 @@ class Gameover extends Phaser.Scene {
         this.add.image(640, 380, "gameOverScene");
 
         // Display "GAME OVER" text
-        this.add.text(640, 250, "GAME", {
+        this.add.text(760, 145, "GAME", {
             fontSize: "64px",
             fontStyle: "bold",
             fill: "#ff0000"
         }).setOrigin(0.5);
 
-        this.add.text(840, 300, "OVER", {
+        this.add.text(760, 200, "OVER", {
             fontSize: "64px",
             fontStyle: "bold",
             fill: "#ff0000"
@@ -51,20 +51,17 @@ class Gameover extends Phaser.Scene {
         let formattedLastScore = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
         // Display "Your Time: MM:SS" on the Game Over screen
-        this.add.text(640, 320, `Your Time: ${formattedLastScore}`, {
-            fontSize: "35px",
+        this.add.text(1130, 620, `Your Time: ${formattedLastScore}`, {
+            fontSize: "23px",
             fontStyle: "bold",
-            fill: "#FF4500",  // Orange-Red color for visibility
-            stroke: "#000000", // Black outline for contrast
-            strokeThickness: 4
+            fill: "#1c1815", // Black outline for contrast
         }).setOrigin(0.5, 0.5);
 
         // Restart Button
-        let restartButton = this.add.text(640, 400, "Restart Game", {
+        let restartButton = this.add.text(445, 537, "Restart Game", {
             fontSize: "28px",
             fontStyle: "bold",
-            fill: "#FFFFFF",
-            backgroundColor: "#228B22", // Green button
+            fill: "#1c1815",
             padding: { x: 15, y: 5 }
         }).setOrigin(0.5).setInteractive();
 
@@ -95,11 +92,10 @@ class Gameover extends Phaser.Scene {
         
 
         // Main Menu Button
-        let menuButton = this.add.text(640, 500, "Main Menu", {
+        let menuButton = this.add.text(450, 615, "Main Menu", {
             fontSize: "28px",
             fontStyle: "bold",
-            fill: "#FFFFFF",
-            backgroundColor: "#0000FF",  // Blue button
+            fill: "#1c1815",
             padding: { x: 15, y: 5 }
         }).setOrigin(0.5).setInteractive();
 
@@ -125,9 +121,42 @@ class Gameover extends Phaser.Scene {
             // Transition to the main menu
             this.scene.start("menuScene");
         });
+
+
+        // Restart Button
+        let creditsButton = this.add.text(445, 700, "Credits", {
+            fontSize: "28px",
+            fontStyle: "bold",
+            fill: "#1c1815",
+            padding: { x: 15, y: 5 }
+        }).setOrigin(0.5).setInteractive();
+
+        creditsButton.on("pointerdown", () => {
+            console.log("Credits..")
+        
+            // Stop and fully remove EventManagerScene before restarting
+            if (this.scene.get("EventManagerScene")) {
+                this.scene.stop("EventManagerScene");
+                this.scene.remove("EventManagerScene");
+            }
+        
+            // Stop all active scenes before restarting
+            this.scene.stop("playScene");
+            this.scene.stop("MiniGameScene");
+            this.scene.stop("MiniGameScene2");
+        
+            // Stop all sounds and reset game state
+            this.sound.stopAll();
+            this.time.removeAllEvents();
+            this.tweens.killAll();
+        
+            // Restart the game fresh
+            this.scene.start("creditsScene");
+        });
         
 
     }
+
     
     resetGameState() {
         // Stop all sounds
