@@ -57,7 +57,7 @@ class MiniGame extends Phaser.Scene {
 
         // Temperature text (Knob 1)
         this.tempText1 = this.add.text(485, 285, `${this.temperatures1[this.knobFrame1]}°`, {
-            fontSize: "20px",  // Increased font size for better visibility
+            fontSize: "40px",  // Increased font size for better visibility
             fill: "#00FF00",  // Neon Green
             fontStyle: "bold",
             stroke: "#000000",  // Black outline for contrast
@@ -66,7 +66,7 @@ class MiniGame extends Phaser.Scene {
 
         // Temperature text (Knob 2)
         this.tempText2 = this.add.text(800, 290, `${this.temperatures2[this.knobFrame2]}°`, {
-            fontSize: "20px",  // Increased font size for better visibility
+            fontSize: "40px",  // Increased font size for better visibility
             fill: "#00FF00",  // Neon Green
             fontStyle: "bold",
             stroke: "#000000",  // Black outline for contrast
@@ -88,14 +88,14 @@ class MiniGame extends Phaser.Scene {
 
         //Display the goal temperature - Auto side 
         this.targetText = this.add.text(340, 320, `Set to: ${this.targetTemp1}°`, {
-            fontSize: "25px",
+            fontSize: "23px",
             fill: "#fff",
             fontStyle: "bold"
         }).setOrigin(0.5, 0.5)
         
         //Display the goal temps test - A.C. side 
-        this.targetText = this.add.text(920, 340, `Set to: ${this.targetTemp2}°`, {
-            fontSize: "20px",
+        this.targetText = this.add.text(950, 320, `Set to: ${this.targetTemp2}°`, {
+            fontSize: "23px",
             fill: "#fff",
             fontStyle: "bold"
         }).setOrigin(0.5, 0.5);

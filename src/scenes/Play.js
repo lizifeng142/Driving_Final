@@ -226,7 +226,7 @@ class Play extends Phaser.Scene {
 
     startPatienceDecrease() {
         if (!this.patienceTween || !this.patienceTween.isPlaying()) {
-            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 1000); // 15000
+            this.patienceTween = this.smoothDecrease(this.patienceBar, 0, 15000); // 15000
         }
     }
 
@@ -294,7 +294,7 @@ class Play extends Phaser.Scene {
             return;
         }
 
-        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 1000); // 15000
+        this.rageTween = this.smoothIncrease(this.rageBar, this.rageBar.maxValue, 15000); // 15000
     }
 
     triggerGameOver() {
