@@ -137,6 +137,14 @@ class Preload extends Phaser.Scene {
         // Start button ("startMiniGame.png")
         this.load.image("startMiniGame","assets/startMiniGameOne.png")
 
+        // Tutorial Page ("tutorialPage.png")
+        this.load.image("tutorialPage","assets/tutorialPage.png")
+
+        // Best time UI Button ("bestTime.png")
+        this.load.image("bestTime","assets/bestTime.png")
+
+
+
 
     }
 

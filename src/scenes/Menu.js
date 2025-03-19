@@ -80,13 +80,19 @@ class Menu extends Phaser.Scene {
         let seconds = savedHighScore % 60;
         let formattedHighScore = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
+        this.add.image(640, 380, "bestTime")
+
         // Display High Score on the menu with bold and improved visibility
-        this.add.text(150, 35, `Best Time: ${formattedHighScore}`, {
+        this.add.text(180, 70, `Best Time:`, {
             fontSize: "30px",       
             fontStyle: "bold",     
-            fill: "#FF4500",        
-            stroke: "#000000",   
-            strokeThickness: 4,     
+            fill: "#000000",               
+        }).setOrigin(0.5, 0.5);
+        
+        this.add.text(180, 105, `${formattedHighScore}`, {
+            fontSize: "35px",       
+            fontStyle: "bold",     
+            fill: "#dc1200",            
         }).setOrigin(0.5, 0.5);
 
         // Add a start button
@@ -115,6 +121,18 @@ class Menu extends Phaser.Scene {
 
         CreditsButton.on('pointerdown', () => {
             this.scene.start('creditsScene');
+        });
+
+        let tutorialButton = this.add.text(970, 680, "Tutorial", {
+            fontSize: "28px",
+            fontStyle: "bold",
+            fill: "#1c1815",
+            padding: { x: 15, y: 5 }
+        }).setOrigin(0.5).setInteractive();
+    
+        tutorialButton.on("pointerdown", () => {
+            console.log("Main Menu button clicked!");  // Debugging
+            this.scene.start("tutorialScene"); // Go back to the Main Menu
         });
 
     }

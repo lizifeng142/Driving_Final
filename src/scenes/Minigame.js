@@ -60,21 +60,20 @@ class MiniGame extends Phaser.Scene {
             fontSize: "40px",  // Increased font size for better visibility
             fill: "#00FF00",  // Neon Green
             fontStyle: "bold",
-            stroke: "#000000",  // Black outline for contrast
+            stroke: "#000000",
             strokeThickness: 3,
         }).setOrigin(0.5, 0.5);
 
         // Temperature text (Knob 2)
         this.tempText2 = this.add.text(800, 290, `${this.temperatures2[this.knobFrame2]}°`, {
-            fontSize: "40px",  // Increased font size for better visibility
-            fill: "#00FF00",  // Neon Green
+            fontSize: "40px", 
+            fill: "#00FF00", 
             fontStyle: "bold",
-            stroke: "#000000",  // Black outline for contrast
+            stroke: "#000000", 
             strokeThickness: 3,
-        }).setOrigin(0.5, 0.5);
+        }).setOrigin(0.5, 0.5)
 
-        // Start Temperature Matching Event
-        this.startTemperatureEvent();
+        this.startTemperatureEvent()
     }
 
     startTemperatureEvent() {
